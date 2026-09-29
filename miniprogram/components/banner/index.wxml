@@ -1,0 +1,24 @@
+<view class="banner">
+  <swiper
+    class="banner__swiper"
+    autoplay="{{autoplay && list.length > 1}}"
+    interval="{{5000}}"
+    duration="{{400}}"
+    circular="{{list.length > 1}}"
+    bindchange="onChange"
+  >
+    <swiper-item wx:for="{{list}}" wx:key="id">
+      <view class="banner__item banner__item--{{item.theme}}" data-index="{{index}}" catchtap="onTap">
+        <image class="banner__bg" src="{{item.image}}" mode="aspectFill" />
+        <view class="banner__content">
+          <text class="banner__title">{{item.title}}</text>
+          <view class="banner__subtitle">{{item.subtitle}}</view>
+          <view wx:if="{{item.cta}}" class="banner__cta">{{item.cta}}</view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+  <view wx:if="{{list.length > 1}}" class="banner__dots">
+    <view wx:for="{{list}}" wx:key="id" class="banner__dot {{current === index ? 'banner__dot--active' : ''}}" />
+  </view>
+</view>

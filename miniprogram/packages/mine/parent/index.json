@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "feature-card": "/components/feature-card/index",
+    "list-cell": "/components/list-cell/index"
+  }
+}

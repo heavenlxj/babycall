@@ -1,0 +1,60 @@
+<nav-bar back="{{false}}" />
+
+<view class="page page--tab mine">
+  <view class="profile">
+    <view class="profile__avatar">
+      <ui-icon name="user" color="#FF9B4A" size="{{64}}" fill />
+    </view>
+    <view class="profile__info">
+      <view class="profile__name">{{profile.nickname || '宝贝的家长'}}</view>
+      <view class="profile__meta">{{profile.phone}}</view>
+    </view>
+    <view class="profile__child">
+      <text>{{profile.childName}}</text>
+      <text class="profile__age">{{profile.childAge}}</text>
+    </view>
+  </view>
+
+  <view class="club" bindtap="onSubscribe">
+    <view class="club__text">
+      <view class="club__title">
+        <ui-icon name="crown" color="#FFFFFF" size="{{36}}" fill />
+        <text>Character Club</text>
+      </view>
+      <view class="club__desc">更多角色 · 角色记忆 · 每日任务 · 新故事</view>
+    </view>
+    <view class="club__cta">{{profile.isMember ? '已开通' : '去开通'}}</view>
+    <image class="club__img" src="{{images.bunny}}" mode="aspectFit" />
+  </view>
+
+  <view class="card group">
+    <list-cell icon="chart" tone="lavender" title="家长中心" desc="今日互动报告与成长记录" bind:tap="goParent" />
+    <list-cell icon="bell" tone="orange" title="消息通知" value="{{unread ? unread + ' 条未读' : ''}}" badge="{{unread > 0}}" bind:tap="goNotifications" />
+    <list-cell icon="list" tone="sky" title="通话记录" bind:tap="goRecords" />
+    <list-cell icon="device" tone="mint" title="设备管理" bind:tap="goDevice" border="{{false}}" />
+  </view>
+
+  <view class="card group">
+    <list-cell icon="settings" tone="gray" title="通话设置" bind:tap="onTodo" />
+    <list-cell icon="shield" tone="mint" title="隐私与安全" bind:tap="onTodo" />
+    <list-cell icon="help" tone="orange" title="常见问题" bind:tap="onTodo" />
+    <list-cell icon="info" tone="gray" title="关于我们" value="{{version}}" arrow="{{false}}" border="{{false}}" />
+  </view>
+
+  <view class="logout" bindtap="onLogout">退出登录</view>
+
+  <view class="footer">
+    <image class="footer__img" src="{{images.friends}}" mode="widthFix" />
+    <view class="footer__text">一起探索角色世界</view>
+  </view>
+</view>
+
+<dialog
+  show="{{showLogout}}"
+  image="{{images.fox}}"
+  title="确定要退出登录吗？"
+  content="小狐会在这里等你回来"
+  confirmText="退出"
+  bind:confirm="onConfirmLogout"
+  bind:cancel="onCancelLogout"
+/>

@@ -1,0 +1,28 @@
+<view
+  class="cc cc--{{variant}} {{selected ? 'cc--selected' : ''}} {{character.locked ? 'cc--locked' : ''}}"
+  style="--role:{{character.color}};background:{{character.bgColor}}"
+  hover-class="cc--hover"
+  bindtap="onTap"
+>
+  <view wx:if="{{character.isNew}}" class="cc__badge">NEW</view>
+  <view wx:if="{{variant === 'grid' && !character.locked}}" class="cc__status">
+    <view class="dot {{character.online ? 'dot--on' : 'dot--off'}}" />
+  </view>
+
+  <image class="cc__img {{variant === 'grid' ? 'breath' : ''}}" src="{{character.image}}" mode="aspectFit" lazy-load />
+
+  <view class="cc__body">
+    <view class="cc__name">{{character.name}}</view>
+    <view wx:if="{{variant !== 'select'}}" class="cc__desc">{{character.personality}}</view>
+    <view wx:if="{{variant === 'grid'}}" class="cc__tags">
+      <text wx:for="{{character.tags}}" wx:key="*this" wx:if="{{index < 2}}" class="cc__tag">{{item}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{character.locked}}" class="cc__lock">
+    <ui-icon name="crown" color="#FFFFFF" size="{{28}}" />
+  </view>
+  <view wx:if="{{variant === 'select' && selected}}" class="cc__check">
+    <ui-icon name="check" color="#FFFFFF" size="{{28}}" stroke="{{3}}" />
+  </view>
+</view>

@@ -1,0 +1,18 @@
+<nav-bar back="{{false}}">
+  <view slot="left" class="title">角色世界</view>
+</nav-bar>
+
+<view class="page page--tab page-sky">
+  <view class="intro">选择喜欢的角色，让 TA 走进孩子的生活</view>
+  <chip-tabs items="{{tabs}}" active="{{active}}" bind:change="onTab" />
+
+  <state-view wx:if="{{loading && !list.length}}" type="loading" title="角色们正在赶来……" />
+  <state-view wx:elif="{{error}}" type="error" action="重新加载" bind:action="load" />
+  <state-view wx:elif="{{!list.length}}" title="这里还没有角色" desc="换个分类看看吧" />
+
+  <view wx:else class="grid">
+    <view wx:for="{{list}}" wx:key="id" class="grid__item">
+      <character-card character="{{item}}" variant="grid" bind:select="onSelect" />
+    </view>
+  </view>
+</view>

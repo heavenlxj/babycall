@@ -1,0 +1,83 @@
+<view class="call">
+  <image class="call__bg" src="{{images.callNight}}" mode="aspectFill" />
+  <nav-bar back="{{phase === 'ended'}}" color="#FFFFFF" placeholder="{{false}}" />
+
+  <view wx:if="{{character}}" class="call__main">
+    <view class="call__head">
+      <view class="call__name">{{character.name}}</view>
+      <view class="call__state">
+        <text wx:if="{{phase === 'incoming'}}">来电中...</text>
+        <text wx:elif="{{phase === 'outgoing'}}">正在呼叫...</text>
+        <text wx:elif="{{phase === 'active'}}">正在通话 {{clock}}</text>
+        <text wx:else>通话结束 {{clock}}</text>
+      </view>
+    </view>
+
+    <view class="stage">
+      <block wx:if="{{phase === 'incoming' || phase === 'outgoing'}}">
+        <view class="ring" /><view class="ring ring--2" /><view class="ring ring--3" />
+      </block>
+      <view class="stage__glow" style="background:radial-gradient(circle,{{character.color}}55 0%,rgba(0,0,0,0) 70%)" />
+      <image class="stage__role {{phase === 'active' ? 'stage__role--talk' : 'breath'}}" src="{{character.image}}" mode="aspectFit" />
+    </view>
+
+    <view wx:if="{{phase === 'incoming'}}" class="quote">「嘿！是我，{{character.name}}！」</view>
+
+    <view wx:if="{{phase === 'active'}}" class="wave">
+      <view wx:for="{{bars}}" wx:key="index" class="wave__bar" style="animation-delay:{{item.delay}}s" />
+    </view>
+
+    <view wx:if="{{phase === 'ended'}}" class="quote">「今天聊得真开心，下次见！」</view>
+  </view>
+
+  <view class="controls">
+    <block wx:if="{{phase === 'incoming'}}">
+      <view class="control">
+        <view class="control__btn control__btn--decline" bindtap="onDecline">
+          <ui-icon name="phoneOff" color="#FFFFFF" size="{{72}}" />
+        </view>
+        <text>拒接</text>
+      </view>
+      <view class="control">
+        <view class="control__btn control__btn--accept" bindtap="onAccept">
+          <ui-icon name="phone" color="#FFFFFF" size="{{72}}" />
+        </view>
+        <text>接听</text>
+      </view>
+    </block>
+
+    <block wx:elif="{{phase === 'outgoing'}}">
+      <view class="control">
+        <view class="control__btn control__btn--decline" bindtap="onDecline">
+          <ui-icon name="phoneOff" color="#FFFFFF" size="{{72}}" />
+        </view>
+        <text>取消</text>
+      </view>
+    </block>
+
+    <block wx:elif="{{phase === 'active'}}">
+      <view class="control">
+        <view class="control__btn control__btn--sub {{muted ? 'control__btn--on' : ''}}" bindtap="toggleMute">
+          <ui-icon name="{{muted ? 'micOff' : 'mic'}}" color="{{muted ? '#293548' : '#FFFFFF'}}" size="{{52}}" />
+        </view>
+        <text>静音</text>
+      </view>
+      <view class="control">
+        <view class="control__btn control__btn--decline" bindtap="onHangup">
+          <ui-icon name="phoneOff" color="#FFFFFF" size="{{72}}" />
+        </view>
+        <text>挂断</text>
+      </view>
+      <view class="control">
+        <view class="control__btn control__btn--sub {{speaker ? 'control__btn--on' : ''}}" bindtap="toggleSpeaker">
+          <ui-icon name="volume" color="{{speaker ? '#293548' : '#FFFFFF'}}" size="{{52}}" />
+        </view>
+        <text>扬声器</text>
+      </view>
+    </block>
+
+    <view wx:else class="control control--wide">
+      <btn type="primary" block bindtap="onClose">好的</btn>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,141 @@
+@import '../../styles/theme.less';
+
+.mine {
+  background: linear-gradient(180deg, #FDEBD6 0%, @c-bg 520rpx) no-repeat, @c-bg;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0 32rpx;
+
+  &__avatar {
+    width: 128rpx;
+    height: 128rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    border: 6rpx solid #fff;
+    box-shadow: @shadow;
+  }
+
+  &__info {
+    flex: 1;
+    margin-left: 24rpx;
+  }
+
+  &__name {
+    font-size: 38rpx;
+    font-weight: 700;
+  }
+
+  &__meta {
+    margin-top: 4rpx;
+    font-size: 24rpx;
+    color: @c-text-2;
+  }
+
+  &__child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 12rpx 24rpx;
+    font-size: 26rpx;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: @r-sm;
+  }
+
+  &__age {
+    font-size: 20rpx;
+    font-weight: 400;
+    color: @c-text-2;
+  }
+}
+
+.club {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 32rpx 180rpx 32rpx 32rpx;
+  border-radius: @r-lg;
+  background: linear-gradient(120deg, #B9A2EA 0%, #8E9CF0 100%);
+  box-shadow: 0 16rpx 40rpx rgba(142, 156, 240, 0.3);
+  overflow: hidden;
+
+  &__text {
+    flex: 1;
+    color: #fff;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    font-size: 32rpx;
+    font-weight: 800;
+
+    text {
+      margin-left: 8rpx;
+    }
+  }
+
+  &__desc {
+    margin-top: 8rpx;
+    font-size: 22rpx;
+    opacity: 0.9;
+  }
+
+  &__cta {
+    position: relative;
+    z-index: 1;
+    padding: 10rpx 24rpx;
+    font-size: 22rpx;
+    font-weight: 700;
+    color: #7C62C2;
+    background: #fff;
+    border-radius: 28rpx;
+  }
+
+  &__img {
+    position: absolute;
+    right: -12rpx;
+    bottom: -40rpx;
+    width: 180rpx;
+    height: 180rpx;
+  }
+}
+
+.group {
+  margin-top: 24rpx;
+  overflow: hidden;
+}
+
+.logout {
+  margin-top: 32rpx;
+  padding: 28rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: @c-text-2;
+  background: #fff;
+  border-radius: @r-md;
+  box-shadow: @shadow;
+}
+
+.footer {
+  margin-top: 40rpx;
+  text-align: center;
+
+  &__img {
+    width: 100%;
+    border-radius: @r-lg;
+    opacity: 0.95;
+  }
+
+  &__text {
+    margin-top: 12rpx;
+    font-size: 24rpx;
+    color: @c-text-3;
+  }
+}

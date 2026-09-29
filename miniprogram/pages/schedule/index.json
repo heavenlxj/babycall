@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "schedule-card": "/components/schedule-card/index",
+    "dialog": "/components/dialog/index"
+  }
+}

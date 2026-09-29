@@ -1,0 +1,12 @@
+<view class="steps">
+  <block wx:for="{{items}}" wx:key="*this">
+    <view wx:if="{{index > 0}}" class="steps__line {{index <= current ? 'steps__line--done' : ''}}" />
+    <view class="steps__item {{index < current ? 'steps__item--done' : ''}} {{index === current ? 'steps__item--active' : ''}}">
+      <view class="steps__num">
+        <ui-icon wx:if="{{index < current}}" name="check" color="#FFFFFF" size="{{24}}" stroke="{{3}}" />
+        <text wx:else>{{index + 1}}</text>
+      </view>
+      <text class="steps__text">{{item}}</text>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,88 @@
+@import './styles/theme.less';
+
+page {
+  background: @c-bg;
+  color: @c-text;
+  font-family: 'PingFang SC', 'Noto Sans SC', -apple-system, 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+image,
+scroll-view {
+  box-sizing: border-box;
+}
+
+/* 页面通用容器：左右 20px，底部为自定义 tabBar 预留空间 */
+.page {
+  min-height: 100vh;
+  padding: 0 @page-x;
+}
+
+.page--tab {
+  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
+}
+
+.page--footer {
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+}
+
+/* 页面顶部柔和天空渐变 */
+.page-sky {
+  background: linear-gradient(180deg, #FDF0DF 0%, #FFF9F0 480rpx) no-repeat;
+}
+
+.card {
+  background: @c-card;
+  border-radius: @r-md;
+  box-shadow: @shadow;
+}
+
+/* 页面底部固定操作区 */
+.footer-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 24rpx @page-x calc(24rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(255, 249, 240, 0) 0%, @c-bg 30%);
+}
+
+.muted {
+  color: @c-text-2;
+}
+
+.dot {
+  display: inline-block;
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  vertical-align: middle;
+}
+
+.dot--on {
+  background: @c-success;
+}
+
+.dot--off {
+  background: @c-text-3;
+}
+
+.breath {
+  animation: breath 3.2s ease-in-out infinite;
+}
+
+@keyframes breath {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8rpx) scale(1.015);
+  }
+}

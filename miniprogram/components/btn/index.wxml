@@ -1,0 +1,15 @@
+<button
+  class="btn btn--{{type}} btn--{{size}} {{block ? 'btn--block' : ''}} {{disabled ? 'btn--disabled' : ''}}"
+  hover-class="{{disabled || loading ? '' : 'btn--hover'}}"
+  open-type="{{disabled || loading ? '' : openType}}"
+  catchtap="onTap"
+  bindgetphonenumber="onGetPhoneNumber"
+>
+  <view wx:if="{{loading}}" class="btn__loading">
+    <view class="btn__dot" /><view class="btn__dot" /><view class="btn__dot" />
+  </view>
+  <block wx:else>
+    <ui-icon wx:if="{{icon}}" name="{{icon}}" color="{{iconColor}}" size="{{size === 'sm' ? 32 : 40}}" customStyle="margin-right:12rpx" />
+    <slot />
+  </block>
+</button>

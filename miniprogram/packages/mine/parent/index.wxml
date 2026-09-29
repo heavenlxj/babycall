@@ -1,0 +1,61 @@
+<nav-bar title="家长中心" />
+
+<view class="page page-sky parent">
+  <state-view wx:if="{{error}}" type="error" action="重新加载" bind:action="load" />
+  <state-view wx:elif="{{!report}}" type="loading" />
+
+  <block wx:else>
+    <view class="report">
+      <view class="report__head">
+        <text class="report__title">今日互动报告</text>
+        <text class="report__link" bindtap="goRecords">通话记录 ›</text>
+      </view>
+      <view class="report__stats">
+        <view class="stat">
+          <view class="stat__num">{{report.callCount}}<text class="stat__unit">次</text></view>
+          <view class="stat__label">今天通话</view>
+        </view>
+        <view class="stat">
+          <view class="stat__num">{{report.callMinutes}}<text class="stat__unit">分钟</text></view>
+          <view class="stat__label">通话时长</view>
+        </view>
+        <view class="stat" bindtap="goFavorite">
+          <avatar src="{{favorite.image}}" bg="#FFFFFF" size="{{72}}" round />
+          <view class="stat__label">最常互动 · {{favorite.name}}</view>
+        </view>
+      </view>
+    </view>
+
+    <section title="喜欢的话题">
+      <view class="topics">
+        <text wx:for="{{report.topics}}" wx:key="*this" class="topic">#{{item}}</text>
+      </view>
+    </section>
+
+    <section title="孩子的成长">
+      <view class="growth">
+        <view wx:for="{{growth}}" wx:key="title" class="growth__item">
+          <feature-card vertical tone="{{item.tone}}" icon="{{item.icon}}" title="{{item.title}}" desc="{{item.desc}}" />
+        </view>
+      </view>
+      <view class="card task">
+        <view class="task__head">
+          <text>今日任务进度</text>
+          <text class="task__num">{{report.taskDone}}/{{report.taskTotal}}</text>
+        </view>
+        <view class="task__track"><view class="task__bar" style="width:{{taskPercent}}%" /></view>
+      </view>
+    </section>
+
+    <section title="更多设置">
+      <view class="card">
+        <list-cell icon="phone" tone="mint" title="通话设置" desc="每日通话时长、免打扰时段" bind:tap="onTodo" />
+        <list-cell icon="book" tone="lavender" title="内容管理" desc="选择适合孩子的故事与话题" bind:tap="onTodo" />
+        <list-cell icon="shield" tone="sky" title="隐私设置" desc="管理角色记忆与数据" bind:tap="onTodo" />
+        <list-cell icon="bell" tone="orange" title="通知设置" bind:tap="onTodo" border="{{false}}" />
+      </view>
+    </section>
+
+    <view class="note">以上为互动记录，不作为任何医学或心理评估依据</view>
+  </block>
+</view>

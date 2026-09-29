@@ -1,0 +1,123 @@
+@import '../../styles/theme.less';
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 48rpx;
+  border: none;
+  border-radius: @r-md;
+  font-weight: 600;
+  line-height: 1;
+  box-sizing: border-box;
+  transition: transform 0.15s ease, opacity 0.15s;
+
+  &::after {
+    border: none;
+  }
+
+  &--lg {
+    height: 104rpx;
+    font-size: 32rpx;
+  }
+
+  &--md {
+    height: 80rpx;
+    font-size: 28rpx;
+    border-radius: 28rpx;
+    padding: 0 36rpx;
+  }
+
+  &--sm {
+    height: 60rpx;
+    font-size: 24rpx;
+    border-radius: 30rpx;
+    padding: 0 28rpx;
+  }
+
+  &--block {
+    display: flex;
+    width: 100%;
+  }
+
+  &--primary {
+    color: #fff;
+    background: linear-gradient(135deg, #FFB067 0%, @c-primary 55%, @c-primary-dark 100%);
+    box-shadow: 0 12rpx 32rpx rgba(255, 155, 74, 0.3);
+  }
+
+  &--sky {
+    color: #fff;
+    background: linear-gradient(135deg, #8DCBFA 0%, @c-sky 100%);
+    box-shadow: 0 12rpx 32rpx rgba(103, 183, 245, 0.3);
+  }
+
+  &--call {
+    color: #fff;
+    background: linear-gradient(135deg, #6BDDA8 0%, @c-call 100%);
+    box-shadow: 0 12rpx 32rpx rgba(60, 196, 138, 0.3);
+  }
+
+  &--secondary {
+    color: @c-text;
+    background: #fff;
+    border: 2rpx solid @c-border;
+  }
+
+  &--soft {
+    color: @c-primary-dark;
+    background: @c-primary-soft;
+  }
+
+  &--ghost {
+    color: @c-text-2;
+    background: transparent;
+    font-weight: 500;
+  }
+
+  &--hover {
+    transform: scale(0.97);
+    opacity: 0.92;
+  }
+
+  &--disabled {
+    color: #fff;
+    background: #E3DDD3;
+    box-shadow: none;
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+  }
+
+  &__dot {
+    width: 12rpx;
+    height: 12rpx;
+    margin: 0 6rpx;
+    border-radius: 50%;
+    background: currentColor;
+    animation: btn-dot 1s ease-in-out infinite;
+
+    &:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+  }
+}
+
+@keyframes btn-dot {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-6rpx);
+  }
+}

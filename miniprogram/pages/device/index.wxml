@@ -1,0 +1,68 @@
+<nav-bar back="{{false}}">
+  <view slot="left" class="title">我的设备</view>
+</nav-bar>
+
+<view class="page page--tab page-sky">
+  <state-view wx:if="{{loading && !device}}" type="loading" title="正在连接童话电话……" />
+  <state-view wx:elif="{{error && !device}}" type="error" action="重新连接" bind:action="load" />
+
+  <!-- 未连接 -->
+  <view wx:elif="{{!device}}" class="empty">
+    <view class="empty__visual">
+      <view class="ripple" />
+      <view class="ripple ripple--2" />
+      <image class="empty__img breath" src="{{images.devicePhone}}" mode="aspectFit" />
+    </view>
+    <view class="empty__status">
+      <view class="dot dot--off" />
+      <text>尚未连接</text>
+    </view>
+    <view class="empty__desc">连接你的儿童电话，让角色可以真正给孩子打电话</view>
+    <view class="empty__actions">
+      <btn type="primary" block icon="wifi" bindtap="onPair">连接设备</btn>
+      <view class="gap" />
+      <btn type="ghost" block bindtap="onHelp">设备配网帮助</btn>
+    </view>
+  </view>
+
+  <!-- 已连接 -->
+  <block wx:else>
+    <view class="block">
+      <device-card device="{{device}}" bind:select="onManage">
+        <view slot="body" class="device-id">设备 ID：{{device.deviceId}}</view>
+      </device-card>
+    </view>
+
+    <view class="card health">
+      <view class="health__item">
+        <ui-icon name="checkCircle" color="#63C58A" size="{{40}}" fill />
+        <text>设备已连接</text>
+      </view>
+      <view class="health__item">
+        <ui-icon name="wifi" color="{{device.status === 'online' ? '#63C58A' : '#A9B0BA'}}" size="{{40}}" />
+        <text>{{device.status === 'online' ? '网络正常' : '网络断开'}}</text>
+      </view>
+      <view class="health__item">
+        <ui-icon name="shield" color="#63C58A" size="{{40}}" fill />
+        <text>服务运行中</text>
+      </view>
+    </view>
+
+    <view class="actions">
+      <view class="actions__item">
+        <btn type="primary" size="md" block bindtap="onManage">设备管理</btn>
+      </view>
+      <view class="actions__item">
+        <btn type="secondary" size="md" block bindtap="onPair">连接新设备</btn>
+      </view>
+    </view>
+
+    <section title="使用帮助">
+      <view class="card">
+        <list-cell icon="list" tone="sky" title="通话记录" desc="查看孩子和角色的每一次通话" bind:tap="onRecords" />
+        <list-cell icon="wifi" tone="mint" title="配网指南" desc="更换 Wi-Fi 时重新配网" bind:tap="onHelp" />
+        <list-cell icon="help" tone="orange" title="常见问题" border="{{false}}" bind:tap="onHelp" />
+      </view>
+    </section>
+  </block>
+</view>

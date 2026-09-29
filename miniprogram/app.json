@@ -1,0 +1,73 @@
+{
+  "pages": [
+    "pages/launch/index",
+    "pages/home/index",
+    "pages/characters/index",
+    "pages/schedule/index",
+    "pages/device/index",
+    "pages/mine/index"
+  ],
+  "subPackages": [
+    {
+      "root": "packages/character",
+      "name": "character",
+      "pages": ["detail/index", "memory/index", "task/index"]
+    },
+    {
+      "root": "packages/schedule",
+      "name": "schedule",
+      "pages": ["edit/index", "success/index"]
+    },
+    {
+      "root": "packages/device",
+      "name": "device",
+      "pages": ["pairing/index", "manage/index"]
+    },
+    {
+      "root": "packages/call",
+      "name": "call",
+      "pages": ["call/index", "records/index"]
+    },
+    {
+      "root": "packages/mine",
+      "name": "mine",
+      "pages": ["notifications/index", "parent/index"]
+    }
+  ],
+  "preloadRule": {
+    "pages/home/index": {
+      "network": "all",
+      "packages": ["character", "schedule"]
+    }
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#A9B0BA",
+    "selectedColor": "#FF9B4A",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "首页" },
+      { "pagePath": "pages/characters/index", "text": "角色" },
+      { "pagePath": "pages/schedule/index", "text": "定时" },
+      { "pagePath": "pages/device/index", "text": "设备" },
+      { "pagePath": "pages/mine/index", "text": "我的" }
+    ]
+  },
+  "window": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF9F0",
+    "backgroundTextStyle": "dark"
+  },
+  "usingComponents": {
+    "ui-icon": "/components/icon/index",
+    "nav-bar": "/components/nav-bar/index",
+    "btn": "/components/btn/index",
+    "avatar": "/components/avatar/index",
+    "section": "/components/section/index",
+    "state-view": "/components/state-view/index"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

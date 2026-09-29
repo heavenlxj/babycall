@@ -1,0 +1,44 @@
+<nav-bar title="今日任务" />
+
+<view class="page page--footer page-sky">
+  <state-view wx:if="{{loading}}" type="loading" />
+  <state-view wx:elif="{{error}}" type="error" action="重新加载" bind:action="onRetry" />
+  <state-view wx:elif="{{!task}}" image="{{character.image}}" title="今天的任务都完成啦" desc="明天再来找{{character.name}}吧" />
+
+  <block wx:else>
+    <view class="hero" style="background:{{character.bgColor}}">
+      <image class="hero__img breath" src="{{character.image}}" mode="aspectFit" />
+      <view class="hero__bubble">「{{task.greeting}}」</view>
+    </view>
+
+    <view class="card task">
+      <view class="task__title">{{task.title}}</view>
+      <view class="task__progress">
+        <view class="task__bar" style="width:{{doneCount / task.steps.length * 100}}%" />
+      </view>
+      <view class="task__count">已完成 {{doneCount}}/{{task.steps.length}}</view>
+
+      <view wx:for="{{task.steps}}" wx:key="text" class="step {{item.done ? 'step--done' : ''}}">
+        <view class="step__num">
+          <ui-icon wx:if="{{item.done}}" name="check" color="#FFFFFF" size="{{24}}" stroke="{{3}}" />
+          <text wx:else>{{index + 1}}</text>
+        </view>
+        <text class="step__text">{{item.text}}</text>
+      </view>
+    </view>
+
+    <view class="reward">
+      <view class="reward__icon">
+        <ui-icon name="star" color="#FFB74D" size="{{48}}" fill />
+      </view>
+      <view class="reward__text">
+        <view class="reward__title">完成奖励</view>
+        <view class="reward__desc">和{{character.name}}的亲密度 +{{task.reward}}</view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{task}}" class="footer-bar">
+  <btn type="primary" block icon="sparkle" bindtap="onStart">开始任务</btn>
+</view>

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "chip-tabs": "/components/chip-tabs/index"
+  }
+}

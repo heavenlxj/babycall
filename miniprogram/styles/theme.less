@@ -1,0 +1,57 @@
+// Design Tokens（设计基准 375 宽，1px = 2rpx）
+
+// 颜色
+@c-bg: #FFF9F0;
+@c-bg-2: #F7F3EA;
+@c-card: #FFFFFF;
+@c-primary: #FF9B4A;
+@c-primary-dark: #F5832B;
+@c-primary-soft: #FFF1E3;
+@c-sky: #67B7F5;
+@c-sky-soft: #E8F4FD;
+@c-mint: #A9DEC8;
+@c-mint-soft: #EAF7F1;
+@c-lavender: #C9B6EA;
+@c-lavender-soft: #F3EEFB;
+@c-pink: #F4B7C7;
+@c-pink-soft: #FDEDF1;
+@c-green: #8BCF9A;
+@c-call: #3CC48A;
+
+@c-text: #293548;
+@c-text-2: #7A8494;
+@c-text-3: #A9B0BA;
+@c-border: #EEE5D8;
+
+@c-success: #63C58A;
+@c-warning: #FFB74D;
+@c-error: #F27B78;
+
+// 圆角
+@r-sm: 24rpx;
+@r-md: 32rpx;
+@r-lg: 40rpx;
+@r-hero: 44rpx;
+@r-sheet: 48rpx;
+
+// 阴影
+@shadow: 0 8rpx 40rpx rgba(55, 45, 35, 0.06);
+@shadow-strong: 0 16rpx 60rpx rgba(55, 45, 35, 0.08);
+
+// 间距
+@page-x: 40rpx;
+@gap: 24rpx;
+@section-gap: 48rpx;
+
+.ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.press() {
+  transition: transform 0.15s ease;
+  &:active {
+    transform: scale(0.98);
+  }
+}

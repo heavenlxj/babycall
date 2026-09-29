@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "chip-tabs": "/components/chip-tabs/index",
+    "character-card": "/components/character-card/index"
+  }
+}

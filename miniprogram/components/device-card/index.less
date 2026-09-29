@@ -1,0 +1,125 @@
+@import '../../styles/theme.less';
+
+.dc {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  border-radius: @r-lg;
+  background: linear-gradient(135deg, #EFFAF4 0%, #DCF2E7 100%);
+  box-shadow: @shadow;
+  transition: transform 0.15s ease;
+
+  &--hover {
+    transform: scale(0.98);
+  }
+
+  &__visual {
+    width: 200rpx;
+    height: 200rpx;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+  }
+
+  &__img {
+    width: 170rpx;
+    height: 170rpx;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    margin-left: 24rpx;
+  }
+
+  &__name {
+    font-size: 34rpx;
+    font-weight: 700;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    margin-top: 12rpx;
+    font-size: 26rpx;
+    color: @c-success;
+    font-weight: 500;
+  }
+
+  &__dot {
+    width: 14rpx;
+    height: 14rpx;
+    margin-right: 10rpx;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  &__battery {
+    display: flex;
+    align-items: center;
+    margin-top: 10rpx;
+    font-size: 24rpx;
+    color: @c-text-2;
+
+    text {
+      margin-left: 8rpx;
+    }
+  }
+
+  &__hint {
+    margin-top: 10rpx;
+    font-size: 24rpx;
+    line-height: 1.5;
+    color: @c-text-2;
+  }
+
+  &--unbound {
+    background: linear-gradient(135deg, #FFF6EC 0%, #FDEBD8 100%);
+
+    .dc__status {
+      color: @c-text-3;
+    }
+  }
+
+  &--offline {
+    background: linear-gradient(135deg, #F4F5F7 0%, #E9ECF0 100%);
+
+    .dc__status {
+      color: @c-text-3;
+    }
+  }
+
+  &--low .dc__status {
+    color: @c-warning;
+  }
+
+  &--compact {
+    padding: 20rpx 28rpx 20rpx 20rpx;
+
+    .dc__visual {
+      width: 128rpx;
+      height: 128rpx;
+    }
+
+    .dc__img {
+      width: 112rpx;
+      height: 112rpx;
+    }
+
+    .dc__name {
+      font-size: 30rpx;
+    }
+
+    .dc__status {
+      margin-top: 6rpx;
+      font-size: 24rpx;
+    }
+
+    .dc__battery {
+      margin-top: 4rpx;
+    }
+  }
+}

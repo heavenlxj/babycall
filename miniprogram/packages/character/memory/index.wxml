@@ -1,0 +1,36 @@
+<nav-bar title="{{character ? character.name + '的记忆' : '角色记忆'}}" />
+
+<view class="page page-sky">
+  <state-view wx:if="{{loading}}" type="loading" title="正在翻开记忆本……" />
+  <state-view wx:elif="{{error}}" type="error" action="重新加载" bind:action="onRetry" />
+
+  <block wx:else>
+    <view class="head" style="background:{{character.bgColor}}">
+      <avatar src="{{character.image}}" bg="#FFFFFF" size="{{120}}" round />
+      <view class="head__text">
+        <view class="head__title">{{character.name}}记住了你</view>
+        <view class="head__desc">和孩子聊天时，{{character.name}}会悄悄记下这些小事</view>
+      </view>
+    </view>
+
+    <state-view
+      wx:if="{{!groups.length}}"
+      image="{{character.image}}"
+      title="还没有记忆哦"
+      desc="多和{{character.name}}聊聊天，TA 会记住你说的话"
+    />
+
+    <view wx:for="{{groups}}" wx:for-item="group" wx:key="date" class="group">
+      <view class="group__date">{{group.date}}</view>
+      <view wx:for="{{group.items}}" wx:key="id" class="memory">
+        <avatar src="{{character.image}}" bg="{{character.bgColor}}" size="{{72}}" round />
+        <view class="memory__bubble">{{item.content}}</view>
+      </view>
+    </view>
+
+    <view class="note">
+      <ui-icon name="shield" color="#A9B0BA" size="{{28}}" />
+      <text>记忆仅家长可见，可在「隐私与安全」中管理</text>
+    </view>
+  </block>
+</view>

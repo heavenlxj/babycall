@@ -1,0 +1,17 @@
+<view
+  class="fc {{vertical ? 'fc--vertical' : ''}}"
+  style="background:{{palette.bg}}"
+  hover-class="fc--hover"
+  catchtap="onTap"
+>
+  <view wx:if="{{icon}}" class="fc__icon" style="background:{{palette.iconBg}}">
+    <ui-icon name="{{icon}}" color="{{palette.icon}}" size="{{vertical ? 44 : 48}}" fill />
+  </view>
+  <view class="fc__body">
+    <view class="fc__title">{{title}}</view>
+    <view wx:if="{{desc}}" class="fc__desc">{{desc}}</view>
+    <slot name="body" />
+  </view>
+  <slot />
+  <ui-icon wx:if="{{arrow && !vertical}}" name="right" color="#A9B0BA" size="{{32}}" />
+</view>

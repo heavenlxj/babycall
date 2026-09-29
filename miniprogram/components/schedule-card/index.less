@@ -1,0 +1,60 @@
+@import '../../styles/theme.less';
+
+.sc {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+  background: #fff;
+  border-radius: @r-md;
+  box-shadow: @shadow;
+  transition: transform 0.15s ease, opacity 0.2s;
+
+  &--hover {
+    transform: scale(0.98);
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    margin-left: 24rpx;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+
+  &__name {
+    font-size: 30rpx;
+    font-weight: 600;
+  }
+
+  &__label {
+    margin-left: 12rpx;
+    padding: 2rpx 14rpx;
+    font-size: 20rpx;
+    color: @c-primary-dark;
+    background: @c-primary-soft;
+    border-radius: 16rpx;
+  }
+
+  &__time {
+    margin-top: 4rpx;
+    font-size: 44rpx;
+    font-weight: 700;
+    line-height: 1.2;
+    font-family: 'SF Pro Rounded', 'Nunito', 'PingFang SC', sans-serif;
+  }
+
+  &__repeat {
+    font-size: 24rpx;
+    color: @c-text-2;
+  }
+
+  &--off {
+    .sc__time,
+    .sc__name {
+      color: @c-text-3;
+    }
+  }
+}

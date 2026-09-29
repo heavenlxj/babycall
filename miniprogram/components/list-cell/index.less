@@ -1,0 +1,67 @@
+@import '../../styles/theme.less';
+
+.cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 112rpx;
+  padding: 20rpx 28rpx;
+
+  &--hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  &--border::after {
+    content: '';
+    position: absolute;
+    left: 108rpx;
+    right: 28rpx;
+    bottom: 0;
+    height: 1px;
+    background: #F3EDE3;
+    transform: scaleY(0.5);
+  }
+
+  &__icon {
+    width: 60rpx;
+    height: 60rpx;
+    margin-right: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20rpx;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+    color: @c-text;
+  }
+
+  &__badge {
+    width: 14rpx;
+    height: 14rpx;
+    margin-left: 10rpx;
+    border-radius: 50%;
+    background: @c-error;
+  }
+
+  &__desc {
+    margin-top: 4rpx;
+    font-size: 22rpx;
+    color: @c-text-3;
+  }
+
+  &__value {
+    margin-right: 8rpx;
+    font-size: 24rpx;
+    color: @c-text-2;
+  }
+}

@@ -1,0 +1,125 @@
+@import '../../../styles/theme.less';
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16rpx;
+  padding: 32rpx 32rpx 40rpx;
+  border-radius: @r-hero;
+
+  &__img {
+    width: 280rpx;
+    height: 280rpx;
+  }
+
+  &__bubble {
+    margin-top: 12rpx;
+    padding: 20rpx 32rpx;
+    font-size: 30rpx;
+    font-weight: 600;
+    background: #fff;
+    border-radius: @r-md;
+    box-shadow: @shadow;
+  }
+}
+
+.task {
+  margin-top: 32rpx;
+  padding: 32rpx;
+
+  &__title {
+    font-size: 32rpx;
+    font-weight: 700;
+  }
+
+  &__progress {
+    height: 16rpx;
+    margin-top: 20rpx;
+    border-radius: 8rpx;
+    background: #F4EEE4;
+    overflow: hidden;
+  }
+
+  &__bar {
+    height: 100%;
+    border-radius: 8rpx;
+    background: linear-gradient(90deg, #FFC48A, @c-primary);
+    transition: width 0.4s;
+  }
+
+  &__count {
+    margin: 8rpx 0 12rpx;
+    font-size: 22rpx;
+    color: @c-text-3;
+  }
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+
+  &__num {
+    width: 48rpx;
+    height: 48rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 24rpx;
+    font-weight: 700;
+    color: @c-primary-dark;
+    background: @c-primary-soft;
+  }
+
+  &__text {
+    flex: 1;
+    margin-left: 20rpx;
+    font-size: 28rpx;
+  }
+
+  &--done {
+    .step__num {
+      background: @c-success;
+    }
+
+    .step__text {
+      color: @c-text-3;
+      text-decoration: line-through;
+    }
+  }
+}
+
+.reward {
+  display: flex;
+  align-items: center;
+  margin-top: 24rpx;
+  padding: 28rpx;
+  border-radius: @r-md;
+  background: linear-gradient(135deg, #FFF8E6 0%, #FFEFC7 100%);
+
+  &__icon {
+    width: 88rpx;
+    height: 88rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28rpx;
+    background: #fff;
+  }
+
+  &__text {
+    margin-left: 20rpx;
+  }
+
+  &__title {
+    font-size: 28rpx;
+    font-weight: 700;
+  }
+
+  &__desc {
+    font-size: 24rpx;
+    color: @c-text-2;
+  }
+}

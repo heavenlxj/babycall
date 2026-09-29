@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "feature-card": "/components/feature-card/index"
+  }
+}

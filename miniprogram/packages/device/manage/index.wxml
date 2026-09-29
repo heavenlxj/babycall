@@ -1,0 +1,65 @@
+<nav-bar title="设备管理" />
+
+<view class="page page-sky manage">
+  <state-view wx:if="{{error && !device}}" type="error" action="重新连接" bind:action="load" />
+  <state-view wx:elif="{{!device}}" type="loading" title="正在连接童话电话……" />
+
+  <block wx:else>
+    <view class="block">
+      <device-card device="{{device}}" />
+    </view>
+
+    <section title="设备功能">
+      <view class="card">
+        <list-cell icon="list" tone="sky" title="通话记录" bind:tap="goRecords" />
+        <list-cell icon="volume" tone="orange" title="通话音量" arrow="{{false}}">
+          <slider
+            class="volume"
+            value="{{device.volume}}"
+            min="{{0}}"
+            max="{{100}}"
+            step="{{10}}"
+            activeColor="#FF9B4A"
+            backgroundColor="#F1ECE3"
+            block-size="{{20}}"
+            bindchange="onVolume"
+          />
+        </list-cell>
+        <list-cell icon="wifi" tone="mint" title="Wi-Fi 设置" value="{{device.wifiName}}" bind:tap="goWifi" border="{{false}}" />
+      </view>
+    </section>
+
+    <section title="设备信息">
+      <view class="card info">
+        <view class="info__row"><text>设备名称</text><text>{{device.name}}</text></view>
+        <view class="info__row"><text>设备 ID</text><text>{{device.deviceId}}</text></view>
+        <view class="info__row"><text>固件版本</text><text>{{device.firmware}}</text></view>
+        <view class="info__row"><text>电量</text><text>{{device.battery}}%</text></view>
+      </view>
+    </section>
+
+    <section title="设备状态">
+      <view class="card status">
+        <view class="status__row"><text>设备已连接</text><ui-icon name="checkCircle" color="#63C58A" size="{{36}}" fill /></view>
+        <view class="status__row"><text>网络正常</text><ui-icon name="checkCircle" color="#63C58A" size="{{36}}" fill /></view>
+        <view class="status__row"><text>服务运行中</text><ui-icon name="checkCircle" color="#63C58A" size="{{36}}" fill /></view>
+      </view>
+    </section>
+
+    <view class="unbind" bindtap="onUnbind">
+      <ui-icon name="unlink" color="#A9B0BA" size="{{32}}" />
+      <text>解除绑定</text>
+    </view>
+  </block>
+</view>
+
+<dialog
+  show="{{showUnbind}}"
+  image="{{images.offline}}"
+  title="解除绑定儿童电话？"
+  content="解除后，角色将暂时无法给孩子打电话，之后可以随时重新连接"
+  confirmText="解除绑定"
+  loading="{{unbinding}}"
+  bind:confirm="onConfirmUnbind"
+  bind:cancel="onCancelUnbind"
+/>

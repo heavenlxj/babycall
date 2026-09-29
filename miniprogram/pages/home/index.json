@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "banner": "/components/banner/index",
+    "character-card": "/components/character-card/index",
+    "feature-card": "/components/feature-card/index",
+    "device-card": "/components/device-card/index"
+  }
+}

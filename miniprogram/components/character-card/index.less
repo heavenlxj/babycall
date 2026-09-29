@@ -1,0 +1,183 @@
+@import '../../styles/theme.less';
+
+.cc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: @r-md;
+  border: 4rpx solid transparent;
+  transition: transform 0.15s ease, border-color 0.15s;
+  box-sizing: border-box;
+
+  &--hover {
+    transform: scale(0.97);
+  }
+
+  &__img {
+    width: 100%;
+  }
+
+  &__body {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__name {
+    font-size: 28rpx;
+    font-weight: 600;
+    color: @c-text;
+  }
+
+  &__desc {
+    font-size: 22rpx;
+    color: @c-text-2;
+    .ellipsis();
+  }
+
+  &__tags {
+    display: flex;
+    justify-content: center;
+    margin-top: 12rpx;
+  }
+
+  &__tag {
+    margin: 0 6rpx;
+    padding: 4rpx 16rpx;
+    font-size: 20rpx;
+    color: var(--role);
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 20rpx;
+  }
+
+  &__badge {
+    position: absolute;
+    left: 16rpx;
+    top: 16rpx;
+    z-index: 2;
+    padding: 2rpx 12rpx;
+    font-size: 18rpx;
+    font-weight: 700;
+    color: #fff;
+    background: @c-sky;
+    border-radius: 12rpx;
+  }
+
+  &__status {
+    position: absolute;
+    right: 16rpx;
+    top: 16rpx;
+  }
+
+  &__lock {
+    position: absolute;
+    right: 16rpx;
+    top: 16rpx;
+    width: 48rpx;
+    height: 48rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(41, 53, 72, 0.35);
+  }
+
+  &__check {
+    position: absolute;
+    right: -4rpx;
+    bottom: -4rpx;
+    width: 44rpx;
+    height: 44rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24rpx 0 @r-md 0;
+    background: @c-primary;
+  }
+
+  // 首页横滑
+  &--mini {
+    width: 152rpx;
+    padding: 12rpx 8rpx 16rpx;
+
+    .cc__img {
+      height: 112rpx;
+    }
+
+    .cc__name {
+      margin-top: 4rpx;
+      font-size: 26rpx;
+    }
+  }
+
+  // 角色列表
+  &--grid {
+    padding: 24rpx 16rpx 28rpx;
+
+    .cc__img {
+      height: 240rpx;
+    }
+
+    .cc__name {
+      margin-top: 12rpx;
+      font-size: 32rpx;
+    }
+
+    .cc__desc {
+      margin-top: 4rpx;
+      font-size: 24rpx;
+    }
+  }
+
+  // 选择角色
+  &--select {
+    padding: 16rpx 8rpx 20rpx;
+
+    .cc__img {
+      height: 150rpx;
+    }
+
+    .cc__name {
+      margin-top: 8rpx;
+    }
+  }
+
+  &--selected {
+    border-color: @c-primary;
+    box-shadow: 0 8rpx 30rpx rgba(255, 155, 74, 0.25);
+  }
+
+  &--locked .cc__img {
+    opacity: 0.55;
+  }
+}
+
+.dot {
+  display: inline-block;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  border: 4rpx solid #fff;
+
+  &--on {
+    background: @c-success;
+  }
+
+  &--off {
+    background: @c-text-3;
+  }
+}
+
+.breath {
+  animation: cc-breath 3.2s ease-in-out infinite;
+}
+
+@keyframes cc-breath {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8rpx);
+  }
+}

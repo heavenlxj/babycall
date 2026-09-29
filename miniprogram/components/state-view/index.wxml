@@ -1,0 +1,11 @@
+<view class="state {{compact ? 'state--compact' : ''}}">
+  <image class="state__img {{type === 'loading' ? 'state__img--loading' : 'breath'}}" src="{{img}}" mode="aspectFit" />
+  <view class="state__title">{{heading}}</view>
+  <view wx:if="{{text}}" class="state__desc">{{text}}</view>
+  <view wx:if="{{type === 'loading'}}" class="state__dots">
+    <view class="state__dot" /><view class="state__dot" /><view class="state__dot" />
+  </view>
+  <view wx:if="{{action}}" class="state__action">
+    <btn type="primary" size="md" icon="{{type === 'error' ? 'refresh' : ''}}" bindtap="onAction">{{action}}</btn>
+  </view>
+</view>

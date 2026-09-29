@@ -1,0 +1,60 @@
+<nav-bar placeholder="{{false}}" />
+
+<state-view wx:if="{{error}}" type="error" action="重新加载" bind:action="load" />
+<state-view wx:elif="{{!character}}" type="loading" />
+
+<view wx:else class="detail" style="--role:{{character.color}};background:{{character.bgColor}}">
+  <view class="hero">
+    <image class="hero__world" src="{{character.world}}" mode="aspectFill" />
+    <view class="hero__fade" style="background:linear-gradient(180deg,rgba(255,255,255,0) 40%,{{character.bgColor}} 100%)" />
+    <image class="hero__role breath" src="{{character.image}}" mode="aspectFit" />
+    <view class="hero__favor" bindtap="onFavor">
+      <ui-icon name="heart" color="{{favored ? '#F27B78' : '#FFFFFF'}}" fill="{{favored}}" size="{{44}}" />
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="panel__head">
+      <text class="panel__name">{{character.name}}</text>
+      <view class="panel__status">
+        <view class="dot {{character.online ? 'dot--on' : 'dot--off'}}" />
+        <text>{{character.online ? '在线' : '休息中'}}</text>
+      </view>
+    </view>
+    <view class="panel__tags">
+      <text wx:for="{{character.tags}}" wx:key="*this" class="panel__tag">{{item}}</text>
+    </view>
+    <view class="bubble">「{{character.intro}}」</view>
+
+    <view class="cta">
+      <btn type="call" block icon="phone" bindtap="onCall">
+        {{character.locked ? '解锁' + character.name : '打电话给' + character.name}}
+      </btn>
+      <view class="cta__gap" />
+      <btn type="soft" block icon="clock" bindtap="onSchedule">设置定时来电</btn>
+    </view>
+
+    <view class="features">
+      <view class="features__item">
+        <feature-card vertical tone="orange" icon="task" title="今日任务" desc="一起完成小冒险" bind:tap="goTask" />
+      </view>
+      <view class="features__item">
+        <feature-card vertical tone="lavender" icon="memory" title="{{character.name}}的记忆" desc="TA 记得你说过的话" bind:tap="goMemory" />
+      </view>
+      <view class="features__item">
+        <feature-card vertical tone="sky" icon="list" title="通话记录" desc="每一次聊天" bind:tap="goRecords" />
+      </view>
+      <view class="features__item">
+        <feature-card vertical tone="mint" icon="calendar" title="下一次来电" desc="{{nextCall || '还没有设置'}}" bind:tap="goSchedule" />
+      </view>
+    </view>
+
+    <view wx:if="{{memory}}" class="card memory" bindtap="goMemory">
+      <view class="memory__head">
+        <ui-icon name="memory" color="#9A7FD6" size="{{36}}" fill />
+        <text>{{character.name}}记得你</text>
+      </view>
+      <view class="memory__text">「{{memory.content}}」</view>
+    </view>
+  </view>
+</view>

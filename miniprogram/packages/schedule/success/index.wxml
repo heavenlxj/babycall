@@ -1,0 +1,32 @@
+<nav-bar back="{{false}}" />
+
+<view class="success">
+  <view class="stage">
+    <view
+      wx:for="{{stars}}"
+      wx:key="left"
+      class="star"
+      style="left:{{item.left}}%;animation-delay:{{item.delay}}s;width:{{item.size}}rpx;height:{{item.size}}rpx"
+    >
+      <ui-icon name="star" color="#FFC857" fill size="{{item.size}}" />
+    </view>
+    <image class="stage__img" src="{{images.success}}" mode="aspectFit" />
+  </view>
+
+  <view class="title">设置成功！</view>
+  <view class="desc">{{name}}会在{{repeatText}} {{time}} 给你打电话</view>
+
+  <view class="card next">
+    <ui-icon name="calendar" color="#FF9B4A" size="{{44}}" fill />
+    <view class="next__body">
+      <view class="next__time">{{nextText}}</view>
+      <view class="next__label">{{name}}的{{label || '来电'}}</view>
+    </view>
+  </view>
+
+  <view class="actions">
+    <btn type="primary" block bindtap="onDone">完成</btn>
+    <view class="gap" />
+    <btn type="ghost" block bindtap="onAgain">再设置一个</btn>
+  </view>
+</view>

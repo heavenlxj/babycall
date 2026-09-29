@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "list-cell": "/components/list-cell/index",
+    "dialog": "/components/dialog/index"
+  }
+}

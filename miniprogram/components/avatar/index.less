@@ -1,0 +1,40 @@
+.avatar {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+
+  &__img {
+    position: absolute;
+    left: 6%;
+    top: 6%;
+    width: 88%;
+    height: 88%;
+
+    &--crop {
+      left: -18%;
+      top: 4%;
+      width: 136%;
+      height: 136%;
+    }
+  }
+
+  &__status {
+    position: absolute;
+    right: 6%;
+    bottom: 6%;
+    width: 22%;
+    height: 22%;
+    max-width: 24rpx;
+    max-height: 24rpx;
+    border-radius: 50%;
+    border: 4rpx solid #fff;
+
+    &--on {
+      background: #63C58A;
+    }
+
+    &--off {
+      background: #C4C9D0;
+    }
+  }
+}

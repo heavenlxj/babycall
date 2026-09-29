@@ -1,0 +1,29 @@
+@import '../../styles/theme.less';
+
+.chips {
+  width: 100%;
+  white-space: nowrap;
+
+  &__inner {
+    display: inline-flex;
+    padding: 4rpx 0 12rpx;
+  }
+
+  &__item {
+    margin-right: 16rpx;
+    padding: 12rpx 32rpx;
+    font-size: 26rpx;
+    color: @c-text-2;
+    background: #fff;
+    border-radius: 32rpx;
+    box-shadow: 0 4rpx 16rpx rgba(55, 45, 35, 0.04);
+    transition: all 0.2s;
+
+    &--active {
+      color: #fff;
+      font-weight: 600;
+      background: @c-primary;
+      box-shadow: 0 8rpx 20rpx rgba(255, 155, 74, 0.3);
+    }
+  }
+}

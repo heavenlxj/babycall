@@ -1,0 +1,17 @@
+<view wx:if="{{show}}" class="dialog" catchtouchmove="noop">
+  <view class="dialog__mask" bindtap="onCancel" />
+  <view class="dialog__panel">
+    <image wx:if="{{image}}" class="dialog__img" src="{{image}}" mode="aspectFit" />
+    <view class="dialog__title">{{title}}</view>
+    <view wx:if="{{content}}" class="dialog__content">{{content}}</view>
+    <slot />
+    <view class="dialog__actions">
+      <view class="dialog__action">
+        <btn type="secondary" size="md" block bindtap="onCancel">{{cancelText}}</btn>
+      </view>
+      <view class="dialog__action">
+        <btn type="primary" size="md" block loading="{{loading}}" bindtap="onConfirm">{{confirmText}}</btn>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,54 @@
+@import '../../../styles/theme.less';
+
+.manage {
+  padding-bottom: calc(60rpx + env(safe-area-inset-bottom));
+}
+
+.block {
+  margin-top: 16rpx;
+}
+
+.volume {
+  width: 280rpx;
+  margin: 0 8rpx 0 0;
+}
+
+.info,
+.status {
+  padding: 8rpx 28rpx;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 88rpx;
+    font-size: 26rpx;
+    color: @c-text-2;
+
+    text:last-child {
+      color: @c-text;
+    }
+
+    & + & {
+      border-top: 1px solid #F3EDE3;
+    }
+  }
+}
+
+.status .status__row {
+  color: @c-text;
+}
+
+.unbind {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 48rpx;
+  padding: 24rpx;
+  font-size: 26rpx;
+  color: @c-text-2;
+
+  text {
+    margin-left: 8rpx;
+  }
+}

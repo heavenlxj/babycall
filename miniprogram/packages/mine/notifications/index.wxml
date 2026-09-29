@@ -1,0 +1,26 @@
+<nav-bar title="消息" />
+
+<view class="page page-sky notices">
+  <view wx:if="{{list.length}}" class="bar">
+    <text>{{unread ? unread + ' 条未读' : '全部已读'}}</text>
+    <text class="bar__action {{unread ? '' : 'bar__action--off'}}" bindtap="onReadAll">全部已读</text>
+  </view>
+
+  <state-view wx:if="{{loading}}" type="loading" />
+  <state-view wx:elif="{{error}}" type="error" action="重新加载" bind:action="load" />
+  <state-view wx:elif="{{!list.length}}" title="暂时没有新消息" desc="角色们有新动态时会第一时间告诉你" />
+
+  <view wx:for="{{list}}" wx:key="id" class="notice card">
+    <view class="notice__icon" style="background:{{item.bg}}">
+      <ui-icon name="{{item.icon}}" color="{{item.color}}" size="{{44}}" fill />
+    </view>
+    <view class="notice__body">
+      <view class="notice__head">
+        <text class="notice__title">{{item.title}}</text>
+        <text class="notice__time">{{item.timeText}}</text>
+      </view>
+      <view class="notice__content">{{item.content}}</view>
+    </view>
+    <view wx:if="{{!item.read}}" class="notice__dot" />
+  </view>
+</view>

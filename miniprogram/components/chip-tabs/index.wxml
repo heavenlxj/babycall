@@ -1,0 +1,11 @@
+<scroll-view class="chips" scroll-x enhanced show-scrollbar="{{false}}">
+  <view class="chips__inner">
+    <view
+      wx:for="{{items}}"
+      wx:key="key"
+      class="chips__item {{active === item.key ? 'chips__item--active' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="onTap"
+    >{{item.label}}</view>
+  </view>
+</scroll-view>

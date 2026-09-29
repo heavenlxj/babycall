@@ -1,0 +1,41 @@
+<view class="launch">
+  <image class="launch__bg" src="{{images.login}}" mode="aspectFill" />
+
+  <view class="launch__brand">
+    <view class="launch__logo">PallyCall</view>
+    <view class="launch__slogan">Talk to Your Favorite Characters</view>
+  </view>
+
+  <view wx:if="{{!ready}}" class="launch__splash">
+    <text>让喜欢的角色，随时陪在孩子身边</text>
+  </view>
+
+  <view wx:else class="launch__panel">
+    <view class="launch__title">欢迎回来</view>
+    <view class="launch__desc">一个电话，连接孩子与奇妙的世界</view>
+
+    <view class="launch__actions">
+      <btn type="call" block loading="{{loading === 'wechat'}}" bindtap="onWechatLogin">微信一键登录</btn>
+      <view class="launch__gap" />
+      <btn
+        wx:if="{{agreed}}"
+        type="secondary"
+        block
+        open-type="getPhoneNumber"
+        loading="{{loading === 'phone'}}"
+        bind:getphonenumber="onPhoneLogin"
+      >手机号登录</btn>
+      <btn wx:else type="secondary" block bindtap="checkAgree">手机号登录</btn>
+    </view>
+
+    <view class="launch__agree {{shake ? 'launch__agree--shake' : ''}}" bindtap="toggleAgree">
+      <view class="launch__check {{agreed ? 'launch__check--on' : ''}}">
+        <ui-icon wx:if="{{agreed}}" name="check" color="#FFFFFF" size="{{22}}" stroke="{{3}}" />
+      </view>
+      <text>登录即代表同意</text>
+      <text class="launch__link" catchtap="openAgreement" data-type="user">《用户协议》</text>
+      <text>和</text>
+      <text class="launch__link" catchtap="openAgreement" data-type="privacy">《隐私政策》</text>
+    </view>
+  </view>
+</view>

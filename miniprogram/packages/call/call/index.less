@@ -1,0 +1,216 @@
+@import '../../../styles/theme.less';
+
+.call {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  color: #fff;
+  background: #1E2356;
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 22vh;
+  }
+
+  &__head {
+    text-align: center;
+  }
+
+  &__name {
+    font-size: 64rpx;
+    font-weight: 800;
+    letter-spacing: 4rpx;
+  }
+
+  &__state {
+    margin-top: 8rpx;
+    font-size: 28rpx;
+    opacity: 0.8;
+  }
+}
+
+.stage {
+  position: relative;
+  width: 520rpx;
+  height: 520rpx;
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__glow {
+    position: absolute;
+    width: 520rpx;
+    height: 520rpx;
+    border-radius: 50%;
+  }
+
+  &__role {
+    position: relative;
+    width: 400rpx;
+    height: 400rpx;
+
+    &--talk {
+      animation: talk 0.9s ease-in-out infinite;
+    }
+  }
+}
+
+.ring {
+  position: absolute;
+  width: 360rpx;
+  height: 360rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+  animation: ring 2.4s ease-out infinite;
+
+  &--2 {
+    animation-delay: 0.8s;
+  }
+
+  &--3 {
+    animation-delay: 1.6s;
+  }
+}
+
+@keyframes ring {
+  from {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes talk {
+  0%,
+  100% {
+    transform: scale(1) rotate(0);
+  }
+  30% {
+    transform: scale(1.03) rotate(-1.5deg);
+  }
+  60% {
+    transform: scale(0.99) rotate(1.5deg);
+  }
+}
+
+.quote {
+  margin-top: 16rpx;
+  padding: 20rpx 36rpx;
+  font-size: 30rpx;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: @r-md;
+}
+
+.wave {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  margin-top: 16rpx;
+
+  &__bar {
+    width: 8rpx;
+    height: 80rpx;
+    margin: 0 5rpx;
+    border-radius: 4rpx;
+    background: linear-gradient(180deg, #FFD19E, #FF9B4A);
+    animation: bar 1s ease-in-out infinite;
+    transform-origin: center;
+  }
+}
+
+@keyframes bar {
+  0%,
+  100% {
+    transform: scaleY(0.2);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(96rpx + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  padding: 0 40rpx;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24rpx;
+  opacity: 0.95;
+
+  text {
+    margin-top: 16rpx;
+  }
+
+  &--wide {
+    flex: 1;
+  }
+
+  &__btn {
+    width: 152rpx;
+    height: 152rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.15s;
+
+    &:active {
+      transform: scale(0.94);
+    }
+
+    &--accept {
+      background: linear-gradient(135deg, #6BDDA8 0%, @c-call 100%);
+      box-shadow: 0 0 0 16rpx rgba(60, 196, 138, 0.25);
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    &--decline {
+      background: linear-gradient(135deg, #FF9C99 0%, @c-error 100%);
+      box-shadow: 0 0 0 16rpx rgba(242, 123, 120, 0.2);
+    }
+
+    &--sub {
+      width: 120rpx;
+      height: 120rpx;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    &--on {
+      background: #fff;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}

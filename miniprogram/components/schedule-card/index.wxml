@@ -1,0 +1,14 @@
+<view class="sc {{item.enabled ? '' : 'sc--off'}}" hover-class="sc--hover" bindtap="onTap">
+  <avatar src="{{item.characterImage}}" bg="{{item.bgColor}}" size="{{104}}" />
+  <view class="sc__body">
+    <view class="sc__row">
+      <text class="sc__name">{{item.characterName}}</text>
+      <text wx:if="{{item.label}}" class="sc__label">{{item.label}}</text>
+    </view>
+    <view class="sc__time">{{item.time}}</view>
+    <view class="sc__repeat">{{item.repeatText}}</view>
+  </view>
+  <view catchtap="noop">
+    <switch checked="{{item.enabled}}" color="#FF9B4A" bindchange="onSwitch" />
+  </view>
+</view>

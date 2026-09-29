@@ -1,0 +1,70 @@
+<nav-bar back="{{false}}">
+  <view slot="left" class="head">
+    <avatar src="{{images.fox}}" size="{{72}}" round bg="#FFE7CF" />
+    <view class="head__text">
+      <view class="head__hello">{{greeting}}，{{childName}} ☀️</view>
+      <view class="head__sub">今天也要开心地和角色聊聊天！</view>
+    </view>
+    <view class="head__bell" bindtap="goNotifications">
+      <ui-icon name="bell" size="{{44}}" />
+      <view wx:if="{{unread}}" class="head__badge" />
+    </view>
+  </view>
+</nav-bar>
+
+<view class="page page--tab page-sky">
+  <state-view wx:if="{{loading && !characters.length}}" type="loading" title="小狐正在准备……" />
+  <state-view wx:elif="{{error && !characters.length}}" type="error" action="重新加载" bind:action="load" />
+
+  <block wx:else>
+    <view class="block">
+      <banner list="{{banners}}" />
+    </view>
+
+    <section title="我的角色" more="全部" bind:more="goCharacters">
+      <scroll-view class="roles" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="roles__inner">
+          <view wx:for="{{characters}}" wx:key="id" class="roles__item">
+            <character-card character="{{item}}" variant="mini" bind:select="onCharacter" />
+          </view>
+        </view>
+      </scroll-view>
+    </section>
+
+    <section title="定时来电">
+      <feature-card
+        tone="orange"
+        icon="clock"
+        title="{{nextSchedule ? nextSchedule.characterName + ' · ' + nextSchedule.nextText : '还没有定时来电'}}"
+        desc="{{nextSchedule ? nextSchedule.label + ' · ' + nextSchedule.repeatText : '让喜欢的角色在固定时间主动给孩子打电话'}}"
+        bind:tap="onSchedule"
+      >
+        <image wx:if="{{nextSchedule}}" class="schedule-role" src="{{nextSchedule.characterImage}}" mode="aspectFit" />
+      </feature-card>
+    </section>
+
+    <section title="我的设备">
+      <device-card device="{{device}}" compact bind:select="onDevice" />
+    </section>
+
+    <section wx:if="{{lastCall}}" title="最近互动" more="通话记录" bind:more="goRecords">
+      <view class="card recent">
+        <view class="recent__call" bindtap="goRecords">
+          <avatar src="{{lastCall.characterImage}}" bg="{{lastCall.bgColor}}" size="{{88}}" />
+          <view class="recent__body">
+            <view class="recent__name">和{{lastCall.characterName}}通话</view>
+            <view class="recent__meta">{{lastCall.timeText}} · {{lastCall.durationText}}</view>
+          </view>
+          <ui-icon name="phone" color="#3CC48A" size="{{40}}" fill />
+        </view>
+        <view wx:if="{{memory}}" class="recent__memory" bindtap="goMemory">
+          <ui-icon name="memory" color="#9A7FD6" size="{{36}}" fill />
+          <view class="recent__memory-text">
+            <text class="recent__memory-title">{{memory.characterName}}记住了你：</text>
+            <text>{{memory.content}}</text>
+          </view>
+        </view>
+      </view>
+    </section>
+  </block>
+</view>

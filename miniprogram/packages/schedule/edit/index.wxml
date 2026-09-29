@@ -1,0 +1,121 @@
+<nav-bar title="{{step === 2 ? '确认定时来电' : '添加定时来电'}}" />
+
+<view class="page page--footer page-sky">
+  <steps items="{{steps}}" current="{{step}}" />
+
+  <!-- ① 选择角色 -->
+  <view wx:if="{{step === 0}}" class="pane">
+    <view class="pane__title">谁来给孩子打电话？</view>
+    <view class="roles">
+      <view wx:for="{{characters}}" wx:key="id" class="roles__item">
+        <character-card character="{{item}}" variant="select" selected="{{characterId === item.id}}" bind:select="onSelect" />
+      </view>
+    </view>
+  </view>
+
+  <!-- ② 设置时间 -->
+  <view wx:elif="{{step === 1}}" class="pane">
+    <view class="who">
+      <avatar src="{{character.image}}" bg="{{character.bgColor}}" size="{{96}}" round />
+      <text class="who__name">{{character.name}}会在这个时间打来</text>
+    </view>
+
+    <view class="card clock">
+      <picker-view
+        class="clock__picker"
+        indicator-class="clock__indicator"
+        value="{{pickerValue}}"
+        bindchange="onTimeChange"
+      >
+        <picker-view-column>
+          <view wx:for="{{hours}}" wx:key="*this" class="clock__cell">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{minutes}}" wx:key="*this" class="clock__cell">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+      <view class="clock__colon">:</view>
+    </view>
+
+    <view class="field">
+      <view class="field__label">重复</view>
+      <view class="chips">
+        <view
+          wx:for="{{repeats}}"
+          wx:key="key"
+          class="chip {{repeat === item.key ? 'chip--on' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onRepeat"
+        >{{item.label}}</view>
+      </view>
+      <view wx:if="{{repeat === 'custom'}}" class="days">
+        <view
+          wx:for="{{weekdays}}"
+          wx:key="day"
+          class="day {{dayMap[item.day] ? 'day--on' : ''}}"
+          data-day="{{item.day}}"
+          bindtap="onDay"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="field__label">来电主题</view>
+      <view class="chips">
+        <view
+          wx:for="{{labels}}"
+          wx:key="*this"
+          class="chip {{label === item ? 'chip--on' : ''}}"
+          data-label="{{item}}"
+          bindtap="onLabel"
+        >{{item}}</view>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="field__label">提前提醒家长</view>
+      <view class="chips">
+        <view
+          wx:for="{{reminds}}"
+          wx:key="value"
+          class="chip {{remindBefore === item.value ? 'chip--on' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onRemind"
+        >{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ③ 确认 -->
+  <view wx:else class="pane">
+    <view class="confirm card">
+      <image class="confirm__img breath" src="{{character.image}}" mode="aspectFit" />
+      <view class="confirm__name">{{character.name}}</view>
+      <view class="confirm__time">{{time}}</view>
+      <view class="confirm__meta">{{repeatText}} · {{label}}</view>
+      <view class="confirm__desc">「{{repeatText}} {{time}}，{{character.name}}会主动给你的儿童电话打来电话。」</view>
+    </view>
+
+    <view class="device card" bindtap="goPair">
+      <avatar src="{{deviceImage}}" bg="#EAF7F1" size="{{80}}" crop="{{false}}" />
+      <view class="device__body">
+        <view class="device__name">{{device ? device.name : '儿童电话'}}</view>
+        <view class="device__status {{device && device.status === 'online' ? 'device__status--on' : ''}}">
+          <ui-icon name="{{device ? 'checkCircle' : 'info'}}" color="{{device ? '#63C58A' : '#FFB74D'}}" size="{{28}}" />
+          <text>{{device ? '已连接' : '还没连接设备，保存后可去连接'}}</text>
+        </view>
+      </view>
+      <ui-icon wx:if="{{!device}}" name="right" color="#A9B0BA" size="{{30}}" />
+    </view>
+  </view>
+</view>
+
+<view class="footer-bar actions">
+  <view wx:if="{{step > 0}}" class="actions__prev">
+    <btn type="secondary" block bindtap="onPrev">上一步</btn>
+  </view>
+  <view class="actions__next">
+    <btn wx:if="{{step < 2}}" type="primary" block disabled="{{step === 0 && !characterId}}" bindtap="onNext">下一步</btn>
+    <btn wx:else type="primary" block loading="{{saving}}" bindtap="onSave">保存</btn>
+  </view>
+</view>

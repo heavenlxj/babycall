@@ -1,0 +1,51 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: background 0.2s;
+
+  &__bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 16rpx;
+  }
+
+  &__back {
+    width: 72rpx;
+    height: 72rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+
+    &--active {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__left {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+    padding-left: 16rpx;
+  }
+
+  &__title {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34rpx;
+    font-weight: 600;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

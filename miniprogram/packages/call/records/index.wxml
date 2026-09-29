@@ -1,0 +1,35 @@
+<nav-bar title="通话记录" />
+
+<view class="page page-sky records">
+  <chip-tabs items="{{tabs}}" active="{{active}}" bind:change="onTab" />
+
+  <state-view wx:if="{{loading && !list.length}}" type="loading" />
+  <state-view wx:elif="{{error}}" type="error" action="重新加载" bind:action="load" />
+  <state-view wx:elif="{{!list.length}}" title="还没有通话记录" desc="让角色打来第一个电话吧" />
+
+  <block wx:else>
+    <view class="card list">
+      <view wx:for="{{list}}" wx:key="id" class="row" hover-class="row--hover" data-id="{{item.characterId}}" bindtap="onRecord">
+        <avatar src="{{item.characterImage}}" bg="{{item.bgColor}}" size="{{88}}" />
+        <view class="row__body">
+          <view class="row__name">
+            <text>{{item.characterName}}</text>
+            <text wx:if="{{item.direction === 'scheduled'}}" class="row__tag">定时来电</text>
+          </view>
+          <view class="row__meta">{{item.timeText}}</view>
+        </view>
+        <text class="row__duration">{{item.durationText}}</text>
+        <ui-icon name="right" color="#C4C9D0" size="{{28}}" />
+      </view>
+    </view>
+
+    <view wx:if="{{memory}}" class="memory" bindtap="goMemory">
+      <image class="memory__img" src="{{memory.image}}" mode="aspectFit" />
+      <view class="memory__body">
+        <view class="memory__title">{{memory.characterName}}记住了你！</view>
+        <view class="memory__text">「{{memory.content}}」</view>
+      </view>
+      <ui-icon name="right" color="#9A7FD6" size="{{28}}" />
+    </view>
+  </block>
+</view>

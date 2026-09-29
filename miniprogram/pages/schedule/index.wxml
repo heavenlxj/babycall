@@ -1,0 +1,46 @@
+<nav-bar back="{{false}}">
+  <view slot="left" class="title">定时来电</view>
+</nav-bar>
+
+<view class="page page-sky schedule">
+  <view class="hero">
+    <view class="hero__text">
+      <view class="hero__title">让角色主动来找你</view>
+      <view class="hero__desc">在固定时间，喜欢的角色会给孩子的儿童电话打来电话</view>
+    </view>
+    <image class="hero__img breath" src="{{images.foxPhone}}" mode="aspectFit" />
+  </view>
+
+  <state-view wx:if="{{loading && !list.length}}" type="loading" />
+  <state-view wx:elif="{{error}}" type="error" action="重新加载" bind:action="load" />
+  <state-view
+    wx:elif="{{!list.length}}"
+    image="{{images.fox}}"
+    title="还没有定时来电"
+    desc="让喜欢的角色主动来找你吧"
+    action="设置定时来电"
+    bind:action="onAdd"
+  />
+
+  <view wx:else>
+    <view wx:for="{{list}}" wx:key="id" class="item">
+      <schedule-card item="{{item}}" bind:toggle="onToggle" bind:select="onSelect" />
+    </view>
+    <view class="tip">轻点卡片可以删除定时来电</view>
+  </view>
+</view>
+
+<view wx:if="{{list.length}}" class="add">
+  <btn type="primary" block icon="plus" bindtap="onAdd">添加定时来电</btn>
+</view>
+
+<dialog
+  show="{{!!removing}}"
+  image="{{removing.characterImage}}"
+  title="删除这个定时来电？"
+  content="{{removing.characterName}}将不会在 {{removing.time}} 给孩子打电话了"
+  confirmText="删除"
+  loading="{{removeLoading}}"
+  bind:confirm="onConfirmRemove"
+  bind:cancel="onCancelRemove"
+/>

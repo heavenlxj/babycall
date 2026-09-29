@@ -1,0 +1,10 @@
+<view class="section">
+  <view class="section__head">
+    <text class="section__title">{{title}}</text>
+    <view wx:if="{{more}}" class="section__more" bindtap="onMore">
+      <text>{{more}}</text>
+      <ui-icon name="right" color="#A9B0BA" size="{{28}}" />
+    </view>
+  </view>
+  <slot />
+</view>

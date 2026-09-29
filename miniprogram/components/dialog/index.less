@@ -1,0 +1,80 @@
+@import '../../styles/theme.less';
+
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(41, 53, 72, 0.45);
+    animation: dialog-fade 0.2s ease;
+  }
+
+  &__panel {
+    position: relative;
+    width: 600rpx;
+    padding: 48rpx 40rpx 40rpx;
+    text-align: center;
+    background: @c-bg;
+    border-radius: @r-sheet;
+    box-shadow: @shadow-strong;
+    animation: dialog-pop 0.25s ease;
+  }
+
+  &__img {
+    width: 220rpx;
+    height: 220rpx;
+    margin: -120rpx auto 8rpx;
+    display: block;
+  }
+
+  &__title {
+    font-size: 34rpx;
+    font-weight: 700;
+    color: @c-text;
+  }
+
+  &__content {
+    margin-top: 16rpx;
+    font-size: 26rpx;
+    line-height: 1.6;
+    color: @c-text-2;
+  }
+
+  &__actions {
+    display: flex;
+    margin-top: 40rpx;
+  }
+
+  &__action {
+    flex: 1;
+
+    & + & {
+      margin-left: 20rpx;
+    }
+  }
+}
+
+@keyframes dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}

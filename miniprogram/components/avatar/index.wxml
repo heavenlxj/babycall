@@ -1,0 +1,7 @@
+<view
+  class="avatar {{round ? 'avatar--round' : ''}}"
+  style="width:{{size}}rpx;height:{{size}}rpx;background:{{bg}};border-radius:{{round ? '50%' : size * 0.3 + 'rpx'}}"
+>
+  <image class="avatar__img {{crop ? 'avatar__img--crop' : ''}}" src="{{src}}" mode="aspectFit" lazy-load />
+  <view wx:if="{{status}}" class="avatar__status avatar__status--{{status}}" />
+</view>

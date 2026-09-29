@@ -1,0 +1,120 @@
+@import '../../styles/theme.less';
+
+.title {
+  font-size: 36rpx;
+  font-weight: 800;
+}
+
+.block {
+  margin-top: 16rpx;
+}
+
+.gap {
+  height: 16rpx;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40rpx;
+
+  &__visual {
+    position: relative;
+    width: 440rpx;
+    height: 440rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    position: relative;
+    width: 320rpx;
+    height: 320rpx;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    margin-top: 24rpx;
+    font-size: 34rpx;
+    font-weight: 700;
+  }
+
+  &__desc {
+    margin-top: 12rpx;
+    padding: 0 40rpx;
+    text-align: center;
+    font-size: 26rpx;
+    line-height: 1.6;
+    color: @c-text-2;
+  }
+
+  &__actions {
+    width: 100%;
+    margin-top: 56rpx;
+  }
+}
+
+.ripple {
+  position: absolute;
+  width: 360rpx;
+  height: 360rpx;
+  border-radius: 50%;
+  background: rgba(103, 183, 245, 0.16);
+  animation: ripple 2.4s ease-out infinite;
+
+  &--2 {
+    animation-delay: 1.2s;
+  }
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0.7);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+.device-id {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: @c-text-3;
+}
+
+.health {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 24rpx;
+  padding: 28rpx 16rpx;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22rpx;
+    color: @c-text-2;
+
+    text {
+      margin-top: 8rpx;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  margin-top: 24rpx;
+
+  &__item {
+    flex: 1;
+
+    & + & {
+      margin-left: 20rpx;
+    }
+  }
+}

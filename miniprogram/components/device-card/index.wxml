@@ -1,0 +1,20 @@
+<view class="dc dc--{{state}} {{compact ? 'dc--compact' : ''}}" hover-class="dc--hover" bindtap="onTap">
+  <view class="dc__visual">
+    <image class="dc__img" src="{{image}}" mode="aspectFit" />
+  </view>
+  <view class="dc__body">
+    <view class="dc__name">{{bound ? device.name : '童话电话'}}</view>
+    <view class="dc__status">
+      <view class="dc__dot" />
+      <text>{{statusText}}</text>
+    </view>
+    <view wx:if="{{state === 'online' || state === 'low'}}" class="dc__battery">
+      <ui-icon name="battery" color="{{state === 'low' ? '#FFB74D' : '#63C58A'}}" size="{{36}}" />
+      <text>{{device.battery}}%</text>
+    </view>
+    <view wx:if="{{!bound}}" class="dc__hint">连接后，角色就能给孩子打电话啦</view>
+    <slot name="body" />
+  </view>
+  <ui-icon wx:if="{{compact}}" name="right" color="#A9B0BA" size="{{32}}" />
+</view>
+<slot />
