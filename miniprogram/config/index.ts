@@ -31,7 +31,7 @@ const CONFIGS: Record<EnvName, EnvConfig> = {
     timeout: { request: 8000, upload: 20000 },
   },
   trial: {
-    apiBaseUrl: 'https://test-api.pallycall.com/app/api',
+    apiBaseUrl: 'http://182.92.23.188:9010/app/api',
     logUrl: 'https://test-api.pallycall.com/log',
     ossBaseUrl: 'https://kidopally-app-test.oss-cn-beijing.aliyuncs.com',
     useMock: true,
