@@ -2,6 +2,7 @@ import { logger } from './logger';
 
 type PageInstance = WechatMiniprogram.Page.TrivialInstance;
 type Hook = (this: PageInstance, ...args: any[]) => unknown;
+type TabBar = { setActive?: (route: string) => void };
 
 /** router 传参时做了 encodeURIComponent，而小程序不会自动解码 onLoad 的参数 */
 function decodeQuery(query: Record<string, string> = {}): Record<string, string> {
@@ -42,6 +43,8 @@ export function definePage<TData extends WechatMiniprogram.Page.DataOption, TCus
     }
   };
   opts.onShow = function (this: PageInstance) {
+    const tabBar = typeof this.getTabBar === 'function' ? (this.getTabBar() as TabBar | undefined) : undefined;
+    if (tabBar && tabBar.setActive) tabBar.setActive(this.route);
     enterAt = Date.now();
     logger.track('page_view', { route: this.route, query: this.options });
     return onShow && onShow.call(this);
