@@ -35,19 +35,6 @@
       >{{item.label}}</view>
     </view>
   </view>
-
-  <view class="field">
-    <view class="field__label">我是宝贝的</view>
-    <view class="chips">
-      <view
-        wx:for="{{relations}}"
-        wx:key="key"
-        class="chip {{relationship === item.key ? 'chip--on' : ''}}"
-        data-key="{{item.key}}"
-        bindtap="onRelation"
-      >{{item.label}}</view>
-    </view>
-  </view>
 </view>
 
 <view class="footer-bar">

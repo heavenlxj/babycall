@@ -22,7 +22,7 @@ export interface EnvConfig {
 const CONFIGS: Record<EnvName, EnvConfig> = {
   develop: {
     // 本地 call-backend，开发者工具需勾选「不校验合法域名」
-    apiBaseUrl: 'http://127.0.0.1:9010/app/api',
+    apiBaseUrl: 'http://182.92.23.188:9010/app/api',
     logUrl: 'https://dev-api.pallycall.com/log',
     ossBaseUrl: 'https://kidopally-app-test.oss-cn-beijing.aliyuncs.com',
     useMock: true,

@@ -28,12 +28,10 @@ export interface Child {
   avatar: string;
   /** YYYY-MM-DD */
   birthday: string;
-  /** 家长与孩子的关系，如 mom / dad */
-  relationship: string;
   bindDevice: boolean;
 }
 
-export type ChildDraft = Pick<Child, 'nickName' | 'gender' | 'birthday' | 'relationship'>;
+export type ChildDraft = Pick<Child, 'nickName' | 'gender' | 'birthday'>;
 
 export type CharacterCategory = 'hot' | 'adventure' | 'warm' | 'knowledge' | 'game';
 

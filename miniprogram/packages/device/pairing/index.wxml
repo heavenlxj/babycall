@@ -1,71 +1,46 @@
 <nav-bar title="连接童话电话" />
 
 <view class="page page--footer page-sky">
-  <steps wx:if="{{phase !== 'intro'}}" items="{{steps}}" current="{{step}}" />
+  <steps items="{{steps}}" current="{{0}}" />
 
-  <!-- 入口 -->
-  <view wx:if="{{phase === 'intro'}}" class="center">
-    <view class="visual">
-      <view class="wave" /><view class="wave wave--2" /><view class="wave wave--3" />
-      <image class="visual__img breath" src="{{images.devicePhone}}" mode="aspectFit" />
-    </view>
-    <view class="headline">让我们一起，开始奇妙的通话之旅吧！</view>
-    <view class="sub">只需 3 步，角色就能给孩子打电话</view>
+  <view class="hero">
+    <image class="hero__img breath" src="{{images.devicePhone}}" mode="aspectFit" />
+    <view class="hero__title">配网前的准备</view>
+    <view class="hero__desc">只需几步，角色就能给宝贝打电话啦</view>
   </view>
 
-  <!-- ① 确认设备 -->
-  <view wx:elif="{{phase === 'device'}}" class="pane">
-    <image class="pane__img" src="{{images.devicePhone}}" mode="aspectFit" />
-    <view class="card guide">
-      <view class="guide__item">
-        <view class="guide__num">1</view>
-        <view>
-          <view class="guide__title">打开儿童电话</view>
-          <view class="guide__desc">长按电源键 3 秒，屏幕亮起小狐表情</view>
-        </view>
+  <view class="block-title"><text>手机设置</text></view>
+  <view class="card checks">
+    <view wx:for="{{items}}" wx:key="key" class="check">
+      <view class="check__icon check__icon--{{item.status}}">
+        <ui-icon name="{{item.icon}}" color="{{item.status === 'fail' ? '#F27B78' : '#67B7F5'}}" size="{{36}}" />
       </view>
-      <view class="guide__item">
-        <view class="guide__num">2</view>
-        <view>
-          <view class="guide__title">进入配网模式</view>
-          <view class="guide__desc">同时按住 ★ 和 ♥ 键，听到「滴滴」提示音</view>
-        </view>
+      <view class="check__text">
+        <view class="check__title">{{item.title}}</view>
+        <view class="check__desc">{{item.desc}}</view>
       </view>
+      <view wx:if="{{item.status === 'checking'}}" class="spinner" />
+      <ui-icon wx:elif="{{item.status === 'ok'}}" name="checkCircle" color="#63C58A" size="{{44}}" fill />
+      <view wx:else class="check__fix" data-key="{{item.key}}" bindtap="onFix">去开启</view>
     </view>
   </view>
 
-  <!-- ② 配置网络 -->
-  <view wx:elif="{{phase === 'wifi'}}" class="pane">
-    <view class="pane__title">连接家里的 Wi-Fi</view>
-    <view class="pane__desc">请选择 2.4GHz Wi-Fi，暂不支持 5GHz 网络</view>
-    <view class="card form">
-      <view class="form__row">
-        <ui-icon name="wifi" color="#67B7F5" size="{{40}}" />
-        <input class="form__input" value="{{ssid}}" placeholder="Wi-Fi 名称" bindinput="onSsid" />
-      </view>
-      <view class="form__row">
-        <ui-icon name="shield" color="#67B7F5" size="{{40}}" />
-        <input class="form__input" value="{{password}}" password="{{!showPwd}}" placeholder="Wi-Fi 密码" bindinput="onPwd" />
-        <text class="form__toggle" bindtap="togglePwd">{{showPwd ? '隐藏' : '显示'}}</text>
+  <view class="block-title"><text>童话电话</text></view>
+  <view class="card guide">
+    <view class="guide__item">
+      <view class="guide__num">1</view>
+      <view>
+        <view class="guide__title">打开童话电话</view>
+        <view class="guide__desc">长按电源键 3 秒，屏幕亮起小狐表情</view>
       </view>
     </view>
-  </view>
-
-  <!-- 连接中 -->
-  <state-view wx:elif="{{phase === 'connecting'}}" type="loading" image="{{images.devicePhone}}" title="正在连接童话电话……" desc="请保持手机靠近儿童电话" />
-
-  <!-- 成功 -->
-  <view wx:elif="{{phase === 'success'}}" class="center">
-    <image class="result__img" src="{{images.success}}" mode="aspectFit" />
-    <view class="headline">连接成功！</view>
-    <view class="sub">现在，角色可以给孩子打电话啦</view>
-  </view>
-
-  <!-- 失败：温和提示 -->
-  <view wx:elif="{{phase === 'fail'}}" class="center">
-    <image class="result__img" src="{{images.offline}}" mode="aspectFit" />
-    <view class="headline">连接超时，请重试</view>
-    <view class="sub">请检查儿童电话是否已经进入配网模式</view>
+    <view class="guide__item">
+      <view class="guide__num">2</view>
+      <view>
+        <view class="guide__title">进入配网模式</view>
+        <view class="guide__desc">同时按住 ★ 和 ♥ 键，听到「滴滴」提示音</view>
+      </view>
+    </view>
   </view>
 
   <view class="tips" bindtap="toggleHelp">
@@ -75,8 +50,8 @@
       <ui-icon name="{{showHelp ? 'down' : 'right'}}" color="#A9B0BA" size="{{28}}" />
     </view>
     <view wx:if="{{showHelp}}" class="tips__body">
-      <view>· 请确保手机靠近儿童电话（1 米以内）</view>
-      <view>· 儿童电话仅支持 2.4GHz Wi-Fi</view>
+      <view>· 手机尽量靠近童话电话（1 米以内）</view>
+      <view>· 童话电话仅支持 2.4GHz Wi-Fi，暂不支持 5GHz</view>
       <view>· Wi-Fi 名称和密码中请避免特殊字符</view>
       <view>· 仍然失败？长按电源键 10 秒重启后再试</view>
     </view>
@@ -84,18 +59,6 @@
 </view>
 
 <view class="footer-bar">
-  <btn wx:if="{{phase === 'intro'}}" type="primary" block icon="wifi" bindtap="onStart">开始配网</btn>
-  <btn wx:elif="{{phase === 'device'}}" type="primary" block bindtap="onDeviceReady">已进入配网模式，下一步</btn>
-  <btn wx:elif="{{phase === 'wifi'}}" type="primary" block bindtap="onConnect">连接</btn>
-  <btn wx:elif="{{phase === 'connecting'}}" type="primary" block loading>连接中</btn>
-  <block wx:elif="{{phase === 'success'}}">
-    <btn type="primary" block icon="clock" bindtap="onSchedule">去设置定时来电</btn>
-    <view class="gap" />
-    <btn type="ghost" block bindtap="onDone">完成</btn>
-  </block>
-  <block wx:else>
-    <btn type="primary" block icon="refresh" bindtap="onRetry">重新配网</btn>
-    <view class="gap" />
-    <btn type="ghost" block bindtap="toggleHelp">查看帮助</btn>
-  </block>
+  <view wx:if="{{!checking && !allOk}}" class="footer-hint footer-hint--warn">请先开启上面标红的设置</view>
+  <btn type="primary" block loading="{{checking}}" disabled="{{checking}}" bindtap="onNext">{{allOk || checking ? '开始搜索设备' : '重新检测'}}</btn>
 </view>

@@ -10,13 +10,6 @@ const GENDERS: { key: Gender; label: string }[] = [
   { key: 'male', label: '男孩' },
   { key: 'female', label: '女孩' },
 ];
-const RELATIONS = [
-  { key: 'mom', label: '妈妈' },
-  { key: 'dad', label: '爸爸' },
-  { key: 'grandma', label: '奶奶/外婆' },
-  { key: 'grandpa', label: '爷爷/外公' },
-  { key: 'other', label: '其他' },
-];
 
 const today = new Date();
 const TODAY = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
@@ -31,11 +24,9 @@ definePage({
     images: IMAGES,
     mode: 'create' as 'create' | 'edit',
     genders: GENDERS,
-    relations: RELATIONS,
     nickName: '',
     gender: '' as Gender | '',
     birthday: '',
-    relationship: 'mom',
     today: TODAY,
     saving: false,
   },
@@ -48,7 +39,6 @@ definePage({
         nickName: child.nickName,
         gender: child.gender,
         birthday: child.birthday,
-        relationship: child.relationship || 'mom',
       });
     }
   },
@@ -65,12 +55,8 @@ definePage({
     this.setData({ birthday: String(e.detail.value) });
   },
 
-  onRelation(e: WechatMiniprogram.TouchEvent) {
-    this.setData({ relationship: e.currentTarget.dataset.key as string });
-  },
-
   async onSave() {
-    const { mode, nickName, gender, birthday, relationship } = this.data;
+    const { mode, nickName, gender, birthday } = this.data;
     const name = nickName.trim();
     if (!name) {
       wx.showToast({ title: '给宝贝起个小名吧', icon: 'none' });
@@ -82,7 +68,7 @@ definePage({
     }
     this.setData({ saving: true });
     try {
-      const draft = { nickName: name, gender, birthday, relationship };
+      const draft = { nickName: name, gender, birthday };
       if (mode === 'edit') {
         await childService.update(childService.currentId(), draft);
         logger.track('child_update');

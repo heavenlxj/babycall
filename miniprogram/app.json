@@ -21,7 +21,7 @@
     {
       "root": "packages/device",
       "name": "device",
-      "pages": ["pairing/index", "manage/index"]
+      "pages": ["pairing/index", "search/index", "wifi/index", "connect/index", "manage/index"]
     },
     {
       "root": "packages/call",

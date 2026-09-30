@@ -10,8 +10,8 @@ export const profileStore = defineItem<UserProfile>('user.profile');
 /** 当前选中的孩子，定时来电 / 设备等接口都以它为维度 */
 export const childStore = defineItem<Child>('child.current');
 export const deviceStore = defineItem<Device>('device.current');
-/** 最近一次配网使用的 Wi-Fi 名称 */
-export const wifiStore = defineItem<string>('device.lastWifi');
+/** 配网用过的 Wi-Fi 及密码（仅存本机），最近使用的在前 */
+export const wifiStore = defineItem<{ ssid: string; password: string }[]>('device.wifiHistory');
 /** 日志上报失败时的待重发队列 */
 export const logQueueStore = defineItem<object[]>('log.pending');
 /** 匿名设备标识，用于日志关联 */

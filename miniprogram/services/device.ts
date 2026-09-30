@@ -42,13 +42,19 @@ export const deviceService = {
     return deviceStore.get() || null;
   },
 
-  /** 配网完成后绑定到当前孩子 */
-  async bind(deviceId: string, wifiName: string): Promise<Device> {
-    const res = await http.post<DeviceDTO>('/child/devices/bind', {
-      child_id: childService.currentId(),
-      device_id: deviceId,
-      wifi_name: wifiName,
-    });
+  /** 配网完成后绑定到当前孩子；mode / firmware 为设备通过蓝牙上报的信息 */
+  async bind(params: { deviceId: string; wifiName: string; mode?: number | null; firmware?: string }): Promise<Device> {
+    const res = await http.post<DeviceDTO>(
+      '/child/devices/bind',
+      {
+        child_id: childService.currentId(),
+        device_id: params.deviceId,
+        wifi_name: params.wifiName,
+        mode: params.mode || undefined,
+        firmware: params.firmware || undefined,
+      },
+      { silent: true },
+    );
     const device = toDevice(res);
     deviceStore.set(device);
     return device;

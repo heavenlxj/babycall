@@ -27,6 +27,6 @@
   <view class="actions">
     <btn type="primary" block bindtap="onDone">完成</btn>
     <view class="gap" />
-    <btn type="ghost" block bindtap="onAgain">再设置一个</btn>
+    <btn type="secondary" block bindtap="onAgain">再设置一个</btn>
   </view>
 </view>

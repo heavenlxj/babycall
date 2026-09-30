@@ -14,6 +14,9 @@ export const ROUTES = {
   scheduleSuccess: '/packages/schedule/success/index',
 
   devicePairing: '/packages/device/pairing/index',
+  deviceSearch: '/packages/device/search/index',
+  deviceWifi: '/packages/device/wifi/index',
+  deviceConnect: '/packages/device/connect/index',
   deviceManage: '/packages/device/manage/index',
 
   call: '/packages/call/call/index',

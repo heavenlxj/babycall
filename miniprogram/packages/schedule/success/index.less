@@ -70,8 +70,11 @@
   width: 100%;
   margin-top: 48rpx;
   padding: 28rpx 32rpx;
+  box-sizing: border-box;
 
   &__body {
+    flex: 1;
+    min-width: 0;
     margin-left: 20rpx;
   }
 
@@ -82,8 +85,10 @@
   }
 
   &__label {
+    margin-top: 4rpx;
     font-size: 24rpx;
     color: @c-text-2;
+    .ellipsis();
   }
 }
 
@@ -93,5 +98,5 @@
 }
 
 .gap {
-  height: 16rpx;
+  height: 20rpx;
 }

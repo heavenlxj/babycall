@@ -8,7 +8,6 @@ interface ChildDTO {
   gender: Gender;
   avatar_url: string | null;
   birthday: string | null;
-  relationship?: string | null;
   bind_device?: boolean;
 }
 
@@ -18,7 +17,6 @@ const toChild = (c: ChildDTO): Child => ({
   gender: c.gender,
   avatar: c.avatar_url || '',
   birthday: c.birthday || '',
-  relationship: c.relationship || '',
   bindDevice: !!c.bind_device,
 });
 
@@ -30,9 +28,8 @@ export const childService = {
       nick_name: draft.nickName,
       gender: draft.gender,
       birthday: draft.birthday || undefined,
-      relationship: draft.relationship || undefined,
     });
-    const child = { ...toChild(res), relationship: draft.relationship };
+    const child = toChild(res);
     childStore.set(child);
     return child;
   },

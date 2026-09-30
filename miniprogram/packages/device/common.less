@@ -1,0 +1,263 @@
+@import '../../styles/theme.less';
+
+/* 配网各步骤页共用样式 */
+
+.page--footer {
+  padding-bottom: calc(340rpx + env(safe-area-inset-bottom));
+}
+
+.footer-bar {
+  padding-top: 56rpx;
+}
+
+.gap {
+  height: 20rpx;
+}
+
+.footer-hint {
+  margin-bottom: 20rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: @c-text-2;
+
+  &--warn {
+    color: @c-error;
+  }
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 24rpx;
+  text-align: center;
+
+  &__img {
+    width: 300rpx;
+    height: 300rpx;
+  }
+
+  &__title {
+    margin-top: 16rpx;
+    font-size: 36rpx;
+    font-weight: 800;
+  }
+
+  &__desc {
+    margin-top: 8rpx;
+    font-size: 26rpx;
+    color: @c-text-2;
+  }
+}
+
+.block-title {
+  display: flex;
+  align-items: center;
+  margin: 40rpx 0 16rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+
+  text {
+    flex: 1;
+  }
+}
+
+/* 雷达波纹 */
+.radar {
+  position: relative;
+  width: 520rpx;
+  height: 520rpx;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__img {
+    position: relative;
+    width: 300rpx;
+    height: 300rpx;
+  }
+
+  &__wave {
+    position: absolute;
+    width: 300rpx;
+    height: 300rpx;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(103, 183, 245, 0) 55%, rgba(103, 183, 245, 0.28) 100%);
+    animation: radar-wave 3s ease-out infinite;
+
+    &--2 {
+      animation-delay: 1s;
+    }
+
+    &--3 {
+      animation-delay: 2s;
+    }
+  }
+
+  &--paused &__wave {
+    animation-play-state: paused;
+    opacity: 0;
+  }
+}
+
+@keyframes radar-wave {
+  from {
+    transform: scale(0.85);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+/* 底部弹层 */
+.mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  background: rgba(41, 53, 72, 0.45);
+  animation: fade-in 0.2s ease;
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 101;
+  padding: 40rpx @page-x calc(32rpx + env(safe-area-inset-bottom));
+  background: @c-bg;
+  border-radius: @r-sheet @r-sheet 0 0;
+  animation: sheet-up 0.25s ease;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28rpx;
+  }
+
+  &__title {
+    flex: 1;
+    font-size: 34rpx;
+    font-weight: 800;
+    .ellipsis();
+  }
+
+  &__close {
+    padding: 8rpx;
+  }
+
+  &__actions {
+    display: flex;
+    margin-top: 36rpx;
+  }
+
+  &__action {
+    flex: 1;
+
+    & + & {
+      margin-left: 20rpx;
+    }
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* 小贴士 */
+.tips {
+  margin-top: 32rpx;
+  padding: 24rpx 28rpx;
+  background: @c-primary-soft;
+  border-radius: @r-md;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    font-size: 26rpx;
+    font-weight: 600;
+    color: @c-primary-dark;
+
+    text {
+      flex: 1;
+      margin-left: 10rpx;
+    }
+  }
+
+  &__body {
+    margin-top: 12rpx;
+    font-size: 24rpx;
+    line-height: 1.9;
+    color: @c-text-2;
+  }
+}
+
+/* 编号引导 */
+.guide {
+  padding: 8rpx 32rpx;
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    padding: 24rpx 0;
+
+    & + & {
+      border-top: 2rpx dashed @c-border;
+    }
+  }
+
+  &__num {
+    width: 44rpx;
+    height: 44rpx;
+    margin-right: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 24rpx;
+    font-weight: 700;
+    color: #fff;
+    background: @c-sky;
+    border-radius: 50%;
+  }
+
+  &__title {
+    font-size: 28rpx;
+    font-weight: 600;
+  }
+
+  &__desc {
+    margin-top: 4rpx;
+    font-size: 24rpx;
+    color: @c-text-2;
+  }
+}
+
+.spinner {
+  width: 32rpx;
+  height: 32rpx;
+  border: 4rpx solid rgba(103, 183, 245, 0.25);
+  border-top-color: @c-sky;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

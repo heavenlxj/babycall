@@ -1,0 +1,80 @@
+<nav-bar title="连接网络" back="{{status !== 'connecting'}}" />
+
+<view class="page page--footer page-sky">
+  <steps items="{{steps}}" current="{{status === 'success' ? 4 : 3}}" />
+
+  <!-- 连接中 -->
+  <block wx:if="{{status === 'connecting'}}">
+    <view class="link">
+      <view class="link__node"><image class="link__img" src="{{images.devicePhone}}" mode="aspectFit" /></view>
+      <view class="link__dots"><view class="link__dot" /><view class="link__dot" /><view class="link__dot" /></view>
+      <view class="link__node link__node--wifi"><ui-icon name="wifi" color="#67B7F5" size="{{72}}" /></view>
+    </view>
+    <view class="hero">
+      <view class="hero__title">正在连接「{{ssid}}」</view>
+      <view class="hero__desc">请保持手机靠近童话电话，大约需要 30 秒</view>
+    </view>
+    <view class="bar">
+      <view class="bar__track"><view class="bar__fill" style="width: {{progress}}%" /></view>
+      <text class="bar__num">{{progress}}%</text>
+    </view>
+  </block>
+
+  <!-- 成功 -->
+  <view wx:elif="{{status === 'success'}}" class="hero">
+    <image class="hero__img" src="{{images.success}}" mode="aspectFit" />
+    <view class="hero__title">连接成功！</view>
+    <view class="hero__desc">{{childName}}的童话电话已经上线，角色可以打电话啦</view>
+  </view>
+
+  <!-- 失败 -->
+  <view wx:else class="hero">
+    <image class="hero__img" src="{{images.offline}}" mode="aspectFit" />
+    <view class="hero__title">{{fail.title}}</view>
+    <view class="hero__desc">{{fail.code ? '错误码 ' + fail.code + ' · ' : ''}}试试下面的方法</view>
+  </view>
+
+  <view wx:if="{{status === 'fail'}}" class="card guide">
+    <view wx:for="{{fail.tips}}" wx:key="*this" class="guide__item">
+      <view class="guide__num">{{index + 1}}</view>
+      <view class="guide__title">{{item}}</view>
+    </view>
+  </view>
+
+  <view wx:elif="{{status === 'success'}}" class="card info">
+    <view class="info__row"><text class="info__label">设备编号</text><text class="info__value">{{device.deviceId}}</text></view>
+    <view class="info__row"><text class="info__label">Wi-Fi</text><text class="info__value">{{ssid}}</text></view>
+  </view>
+
+  <view wx:if="{{status !== 'success'}}" class="card stages">
+    <view wx:for="{{stages}}" wx:key="key" class="stage stage--{{item.state}}">
+      <view class="stage__mark">
+        <view wx:if="{{item.state === 'doing'}}" class="spinner" />
+        <ui-icon wx:elif="{{item.state === 'done'}}" name="checkCircle" color="#63C58A" size="{{40}}" fill />
+        <ui-icon wx:elif="{{item.state === 'fail'}}" name="close" color="#F27B78" size="{{32}}" stroke="{{3}}" />
+        <view wx:else class="stage__dot" />
+      </view>
+      <text class="stage__title">{{item.title}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="footer-bar">
+  <btn wx:if="{{status === 'connecting'}}" type="primary" block loading disabled>连接中</btn>
+  <block wx:elif="{{status === 'success'}}">
+    <btn type="primary" block bindtap="onSchedule">去设置定时来电</btn>
+    <view class="gap" />
+    <btn type="secondary" block bindtap="onDone">完成</btn>
+  </block>
+  <block wx:elif="{{fail.retry === 'wifi'}}">
+    <btn type="primary" block bindtap="onRetryWifi">重新输入 Wi-Fi 信息</btn>
+    <view class="gap" />
+    <btn type="secondary" block bindtap="onRetrySearch">重新搜索设备</btn>
+  </block>
+  <block wx:elif="{{fail.retry === 'bind'}}">
+    <btn type="primary" block bindtap="onRetryBind">重试绑定</btn>
+    <view class="gap" />
+    <btn type="secondary" block bindtap="onRetrySearch">重新搜索设备</btn>
+  </block>
+  <btn wx:else type="primary" block bindtap="onRetrySearch">重新搜索设备</btn>
+</view>

@@ -1,0 +1,66 @@
+<nav-bar title="搜索童话电话" />
+
+<view class="page page--footer page-sky">
+  <steps items="{{steps}}" current="{{1}}" />
+
+  <block wx:if="{{phase === 'searching'}}">
+    <view class="radar {{devices.length ? 'radar--paused' : ''}}">
+      <view class="radar__wave" /><view class="radar__wave radar__wave--2" /><view class="radar__wave radar__wave--3" />
+      <image class="radar__img breath" src="{{images.devicePhone}}" mode="aspectFit" />
+    </view>
+    <view class="hero">
+      <view class="hero__title">{{devices.length ? '找到童话电话啦' : '正在寻找童话电话…'}}</view>
+      <view class="hero__desc">{{devices.length ? '点击「连接」开始配置网络' : '请让手机靠近童话电话，并保持配网模式'}}</view>
+    </view>
+
+    <view wx:if="{{devices.length}}" class="card found">
+      <view wx:for="{{devices}}" wx:key="deviceId" class="found__item">
+        <view class="found__icon"><ui-icon name="device" color="#FF9B4A" size="{{40}}" fill /></view>
+        <view class="found__text">
+          <view class="found__name">童话电话</view>
+          <view class="found__id">{{item.name}}</view>
+        </view>
+        <ui-icon name="{{item.icon}}" color="#67B7F5" size="{{36}}" />
+        <view class="found__btn {{connectingId === item.deviceId ? 'found__btn--loading' : ''}}" data-id="{{item.deviceId}}" bindtap="onConnect">
+          <view wx:if="{{connectingId === item.deviceId}}" class="spinner spinner--white" />
+          <text wx:else>连接</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="hero">
+      <image class="hero__img" src="{{images.offline}}" mode="aspectFit" />
+      <view class="hero__title">没有找到童话电话</view>
+      <view class="hero__desc">别着急，按下面的方法检查一下</view>
+    </view>
+    <view class="card guide">
+      <view class="guide__item">
+        <view class="guide__num">1</view>
+        <view>
+          <view class="guide__title">确认已进入配网模式</view>
+          <view class="guide__desc">同时按住 ★ 和 ♥ 键，听到「滴滴」提示音</view>
+        </view>
+      </view>
+      <view class="guide__item">
+        <view class="guide__num">2</view>
+        <view>
+          <view class="guide__title">靠近一点</view>
+          <view class="guide__desc">手机与童话电话保持在 1 米以内</view>
+        </view>
+      </view>
+      <view class="guide__item">
+        <view class="guide__num">3</view>
+        <view>
+          <view class="guide__title">重启童话电话</view>
+          <view class="guide__desc">长按电源键 10 秒重启，再重新进入配网模式</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class="footer-bar">
+  <btn type="primary" block loading="{{phase === 'searching' && !devices.length}}" disabled="{{(phase === 'searching' && !devices.length) || !!connectingId}}" bindtap="onRetry">重新搜索</btn>
+</view>

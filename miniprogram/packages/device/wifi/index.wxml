@@ -1,0 +1,111 @@
+<nav-bar title="配置网络" />
+
+<view class="page page-sky wifi">
+  <steps items="{{steps}}" current="{{2}}" />
+
+  <view class="intro">
+    <view class="intro__title">选择童话电话要连接的 Wi-Fi</view>
+    <view class="intro__desc">仅支持 2.4GHz 网络 · 密码只保存在这台手机上</view>
+  </view>
+
+  <view class="card nets">
+    <view class="nets__head">
+      <text>附近的网络</text>
+      <view wx:if="{{scanning}}" class="nets__scanning"><view class="spinner" /><text>扫描中</text></view>
+      <view wx:else class="nets__refresh" bindtap="onRescan">
+        <ui-icon name="refresh" color="#67B7F5" size="{{32}}" />
+      </view>
+    </view>
+
+    <block wx:if="{{scanning && !list.length}}">
+      <view wx:for="{{[1, 2, 3]}}" wx:key="*this" class="net net--skeleton">
+        <view class="skeleton skeleton--icon" />
+        <view class="skeleton skeleton--line" />
+      </view>
+    </block>
+
+    <view wx:elif="{{failed}}" class="nets__empty">
+      <text>没有扫描到附近的网络</text>
+      <text class="nets__retry" bindtap="onRescan">重新扫描</text>
+    </view>
+
+    <view
+      wx:for="{{list}}"
+      wx:key="ssid"
+      class="net {{item.is5G ? 'net--disabled' : ''}}"
+      data-index="{{index}}"
+      bindtap="onPick"
+    >
+      <ui-icon name="{{item.icon}}" color="{{item.is5G ? '#A9B0BA' : '#293548'}}" size="{{40}}" />
+      <view class="net__name">
+        <text class="net__ssid">{{item.ssid}}</text>
+        <text wx:if="{{item.current}}" class="net__tag">手机当前连接</text>
+      </view>
+      <text wx:if="{{item.is5G}}" class="net__band">5G 不支持</text>
+      <ui-icon wx:if="{{item.secure}}" name="lock" color="#A9B0BA" size="{{28}}" />
+      <ui-icon name="right" color="#D5D9DF" size="{{28}}" />
+    </view>
+
+    <view class="net net--manual" bindtap="onManual">
+      <ui-icon name="plus" color="#67B7F5" size="{{36}}" />
+      <view class="net__name"><text class="net__ssid net__ssid--link">手动输入其他网络</text></view>
+      <ui-icon name="right" color="#D5D9DF" size="{{28}}" />
+    </view>
+  </view>
+
+  <view class="tips" bindtap="toggleWhy">
+    <view class="tips__head">
+      <ui-icon name="help" color="#FF9B4A" size="{{32}}" />
+      <text>为什么找不到我的 Wi-Fi？</text>
+      <ui-icon name="{{showWhy ? 'down' : 'right'}}" color="#A9B0BA" size="{{28}}" />
+    </view>
+    <view wx:if="{{showWhy}}" class="tips__body">
+      <view>· 童话电话只能连接 2.4GHz 网络，5GHz 网络不会出现或不可选</view>
+      <view>· 隐藏了名称的 Wi-Fi，请使用「手动输入其他网络」</view>
+      <view>· 把童话电话拿到离路由器近一点的地方，再点右上角刷新</view>
+    </view>
+  </view>
+</view>
+
+<block wx:if="{{sheet}}">
+  <view class="mask" catchtap="closeSheet" />
+  <view class="sheet">
+    <view class="sheet__head">
+      <text class="sheet__title">{{manual ? '手动输入网络' : ssid}}</text>
+      <view class="sheet__close" bindtap="closeSheet"><ui-icon name="close" color="#A9B0BA" size="{{36}}" /></view>
+    </view>
+
+    <view class="card field-group">
+      <view wx:if="{{manual}}" class="field">
+        <ui-icon name="wifi" color="#67B7F5" size="{{36}}" />
+        <input class="field__input" value="{{ssid}}" placeholder="Wi-Fi 名称" maxlength="{{32}}" focus bindinput="onSsidInput" />
+      </view>
+      <view class="field">
+        <ui-icon name="lock" color="#67B7F5" size="{{36}}" />
+        <input
+          class="field__input"
+          value="{{password}}"
+          password="{{!showPwd}}"
+          placeholder="{{manual ? 'Wi-Fi 密码（开放网络可不填）' : '请输入 Wi-Fi 密码'}}"
+          maxlength="{{64}}"
+          focus="{{!manual}}"
+          confirm-type="done"
+          bindinput="onPwdInput"
+          bindconfirm="onSubmit"
+        />
+        <view class="field__eye" bindtap="togglePwd">
+          <ui-icon name="{{showPwd ? 'eye' : 'eyeOff'}}" color="#A9B0BA" size="{{36}}" />
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{remembered}}" class="hint hint--info">已自动填入上次使用的密码</view>
+    <view wx:if="{{warn5G}}" class="hint hint--warn">名称含「5G」，可能是 5GHz 网络，童话电话将无法连接</view>
+    <view wx:if="{{pwdSpace}}" class="hint hint--warn">密码开头或结尾有空格，请确认是否正确</view>
+
+    <view class="sheet__actions">
+      <view class="sheet__action"><btn type="secondary" block bindtap="closeSheet">取消</btn></view>
+      <view class="sheet__action"><btn type="primary" block bindtap="onSubmit">连接</btn></view>
+    </view>
+  </view>
+</block>

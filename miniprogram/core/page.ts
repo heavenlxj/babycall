@@ -3,9 +3,22 @@ import { logger } from './logger';
 type PageInstance = WechatMiniprogram.Page.TrivialInstance;
 type Hook = (this: PageInstance, ...args: any[]) => unknown;
 
+/** router 传参时做了 encodeURIComponent，而小程序不会自动解码 onLoad 的参数 */
+function decodeQuery(query: Record<string, string> = {}): Record<string, string> {
+  const result: Record<string, string> = {};
+  Object.keys(query).forEach((key) => {
+    try {
+      result[key] = decodeURIComponent(query[key]);
+    } catch {
+      result[key] = query[key];
+    }
+  });
+  return result;
+}
+
 /**
  * Page 的轻量包装：自动上报 page_view / page_leave（含停留时长），
- * 并记录 onLoad 中的同步异常。用法与 Page 完全一致。
+ * 解码页面参数，并记录 onLoad 中的同步异常。用法与 Page 完全一致。
  */
 export function definePage<TData extends WechatMiniprogram.Page.DataOption, TCustom extends WechatMiniprogram.Page.CustomOption>(
   options: WechatMiniprogram.Page.Options<TData, TCustom>,
@@ -19,7 +32,8 @@ export function definePage<TData extends WechatMiniprogram.Page.DataOption, TCus
     enterAt = 0;
   }
 
-  opts.onLoad = function (this: PageInstance, query: Record<string, string>) {
+  opts.onLoad = function (this: PageInstance, rawQuery: Record<string, string>) {
+    const query = decodeQuery(rawQuery);
     try {
       return onLoad && onLoad.call(this, query);
     } catch (e) {

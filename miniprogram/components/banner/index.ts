@@ -4,7 +4,7 @@ import { router } from '../../core/router';
 
 /**
  * 运营 Banner 轮播：数据由服务端配置（图片/标题/副标题/CTA/跳转/时间窗/排序）
- * 默认点击按 link + params 跳转，并上报曝光与点击
+ * 默认点击按 link + params 跳转，并上报点击
  */
 Component({
   properties: {
@@ -12,20 +12,9 @@ Component({
     autoplay: { type: Boolean, value: true },
   },
   data: { current: 0 },
-  observers: {
-    list(list: Banner[]) {
-      if (list.length) this.expose(0);
-    },
-  },
   methods: {
     onChange(e: WechatMiniprogram.SwiperChange) {
-      const current = e.detail.current;
-      this.setData({ current });
-      this.expose(current);
-    },
-    expose(index: number) {
-      const item = (this.data.list as Banner[])[index];
-      if (item) logger.track('banner_expose', { id: item.id, index });
+      this.setData({ current: e.detail.current });
     },
     onTap(e: WechatMiniprogram.TouchEvent) {
       const index = e.currentTarget.dataset.index as number;

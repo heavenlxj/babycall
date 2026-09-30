@@ -10,8 +10,19 @@
   border-radius: @r-md;
   font-weight: 600;
   line-height: 1;
+  white-space: nowrap;
   box-sizing: border-box;
   transition: transform 0.15s ease, opacity 0.15s;
+
+  /* style v2 下原生 button:not([size=mini]) 固定 184px 宽且优先级更高，需同级以上选择器覆盖 */
+  &:not(.btn--block) {
+    width: auto;
+  }
+
+  &.btn--block {
+    display: flex;
+    width: 100%;
+  }
 
   &::after {
     border: none;
@@ -34,11 +45,6 @@
     font-size: 24rpx;
     border-radius: 30rpx;
     padding: 0 28rpx;
-  }
-
-  &--block {
-    display: flex;
-    width: 100%;
   }
 
   &--primary {
