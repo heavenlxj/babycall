@@ -21,6 +21,7 @@ export const ROUTES = {
 
   notifications: '/packages/mine/notifications/index',
   parentCenter: '/packages/mine/parent/index',
+  childEdit: '/packages/mine/child/index',
 } as const;
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];

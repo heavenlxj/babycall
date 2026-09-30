@@ -1,0 +1,55 @@
+<nav-bar title="{{mode === 'edit' ? '宝贝资料' : '添加宝贝'}}" back="{{mode === 'edit'}}" />
+
+<view class="page page-sky page--footer child">
+  <view class="hero">
+    <image class="hero__img" src="{{images.fox}}" mode="aspectFit" />
+    <view class="hero__text">
+      <view class="hero__title">{{mode === 'edit' ? '更新宝贝的资料' : '认识一下你的宝贝'}}</view>
+      <view class="hero__sub">角色会用小名和宝贝打招呼</view>
+    </view>
+  </view>
+
+  <view class="card form">
+    <view class="form__row">
+      <text class="form__label">小名</text>
+      <input class="form__input" value="{{nickName}}" maxlength="{{16}}" placeholder="例如：豆豆" bindinput="onName" />
+    </view>
+    <view class="form__row">
+      <text class="form__label">生日</text>
+      <picker class="form__input" mode="date" value="{{birthday}}" start="2010-01-01" end="{{today}}" bindchange="onBirthday">
+        <view class="form__picker {{birthday ? '' : 'form__picker--empty'}}">{{birthday || '选择生日（选填）'}}</view>
+      </picker>
+      <ui-icon name="right" color="#A9B0BA" size="{{32}}" />
+    </view>
+  </view>
+
+  <view class="field">
+    <view class="field__label">性别</view>
+    <view class="chips">
+      <view
+        wx:for="{{genders}}"
+        wx:key="key"
+        class="chip {{gender === item.key ? 'chip--on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onGender"
+      >{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="field">
+    <view class="field__label">我是宝贝的</view>
+    <view class="chips">
+      <view
+        wx:for="{{relations}}"
+        wx:key="key"
+        class="chip {{relationship === item.key ? 'chip--on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onRelation"
+      >{{item.label}}</view>
+    </view>
+  </view>
+</view>
+
+<view class="footer-bar">
+  <btn type="primary" block loading="{{saving}}" bindtap="onSave">{{mode === 'edit' ? '保存' : '完成，开始探索'}}</btn>
+</view>

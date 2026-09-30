@@ -1,8 +1,9 @@
+import { childService } from '../services/child';
 import { userService } from '../services/user';
-import { clearUserData, profileStore, tokenStore } from '../store/index';
-import type { TokenInfo } from '../models/index';
+import { profileStore, tokenStore } from '../store/index';
+import type { Child } from '../models/index';
 import { logger } from './logger';
-import { registerRefresher } from './request';
+import { registerAuthReady, registerRefresher } from './request';
 
 function wxLoginCode(): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -13,37 +14,42 @@ function wxLoginCode(): Promise<string> {
   });
 }
 
-async function afterLogin(token: TokenInfo) {
+async function loginByWechat(): Promise<string> {
+  const token = await userService.loginByCode(await wxLoginCode());
   tokenStore.set(token);
-  const profile = await userService.getProfile();
-  profileStore.set(profile);
-  logger.setContext({ userId: profile.userId });
-  logger.track('login_success');
+  return token.accessToken;
 }
 
+let loginTask: Promise<void> | null = null;
+
+/**
+ * 无感登录：启动时静默 wx.login 换 token，不需要用户操作。
+ * 需要鉴权的请求会先等待登录完成；登录失败不阻塞，后续请求 401 时会再次登录。
+ */
 export const auth = {
-  isLoggedIn(): boolean {
-    return !!tokenStore.get()?.accessToken;
+  init(): Promise<void> {
+    loginTask = loginByWechat().then(
+      () => logger.track('login_success'),
+      (e) => logger.warn('auth', 'silent login failed', { reason: String(e) }),
+    );
+    return loginTask;
   },
 
-  /** 微信一键登录 */
-  async loginWithWechat() {
-    const code = await wxLoginCode();
-    await afterLogin(await userService.loginByCode(code));
+  ready(): Promise<void> {
+    return loginTask || Promise.resolve();
   },
 
-  /** 手机号登录：phoneCode 来自 button open-type="getPhoneNumber" */
-  async loginWithPhone(phoneCode: string) {
-    const code = await wxLoginCode();
-    await afterLogin(await userService.loginByPhone(code, phoneCode));
-  },
-
-  logout() {
-    logger.track('logout');
-    clearUserData();
-    logger.setContext({ userId: '', deviceId: '' });
+  /** 登录完成后同步用户资料与当前孩子，返回当前孩子（没有则需要引导创建） */
+  async bootstrap(): Promise<Child | null> {
+    await auth.ready();
+    const [profile, child] = await Promise.all([userService.getProfile(), childService.sync()]);
+    profileStore.set(profile);
+    logger.setContext({ userId: profile.userId });
+    return child;
   },
 };
+
+registerAuthReady(() => auth.ready());
 
 registerRefresher(async () => {
   const refresh = tokenStore.get()?.refreshToken;
@@ -54,8 +60,6 @@ registerRefresher(async () => {
     return token.accessToken;
   } catch (e) {
     logger.warn('auth', 'refresh token failed, relogin', { reason: String(e) });
-    const token = await userService.loginByCode(await wxLoginCode());
-    tokenStore.set(token);
-    return token.accessToken;
+    return loginByWechat();
   }
 });

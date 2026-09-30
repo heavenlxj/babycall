@@ -8,7 +8,7 @@
       <view class="dc__dot" />
       <text>{{statusText}}</text>
     </view>
-    <view wx:if="{{state === 'online' || state === 'low'}}" class="dc__battery">
+    <view wx:if="{{(state === 'online' || state === 'low') && device.battery !== null}}" class="dc__battery">
       <ui-icon name="battery" color="{{state === 'low' ? '#FFB74D' : '#63C58A'}}" size="{{36}}" />
       <text>{{device.battery}}%</text>
     </view>

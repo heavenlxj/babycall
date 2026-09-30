@@ -1,22 +1,47 @@
 import { http } from '../core/request';
-import * as db from '../mock/db';
 import type { TokenInfo, UserProfile } from '../models/index';
 
-const mockToken = (): TokenInfo => ({
-  accessToken: `mock_access_${Date.now()}`,
-  refreshToken: `mock_refresh_${Date.now()}`,
-  expiresIn: 7200,
+interface LoginDTO {
+  user_id: string;
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+}
+
+interface RefreshDTO {
+  access_token: string;
+  expires_in: number;
+}
+
+interface UserDTO {
+  user_id: string;
+  nickname: string | null;
+  avatar_url: string | null;
+  phone: string | null;
+}
+
+const toProfile = (u: UserDTO): UserProfile => ({
+  userId: u.user_id,
+  nickname: u.nickname || '',
+  avatar: u.avatar_url || '',
+  phone: u.phone || '',
 });
 
 export const userService = {
-  loginByCode: (code: string) =>
-    http.post<TokenInfo>('/v1/auth/wechat', { code }, { auth: false, mock: mockToken }),
+  async loginByCode(code: string): Promise<TokenInfo> {
+    const res = await http.post<LoginDTO>('/users/login', { code, source: 'mini_program' }, { auth: false, silent: true });
+    return { accessToken: res.access_token, refreshToken: res.refresh_token, expiresIn: res.expires_in };
+  },
 
-  loginByPhone: (code: string, phoneCode: string) =>
-    http.post<TokenInfo>('/v1/auth/phone', { code, phoneCode }, { auth: false, mock: mockToken }),
+  /** 用 refresh token 换新的 access token，refresh token 本身不变 */
+  async refreshToken(refreshToken: string): Promise<TokenInfo> {
+    const res = await http.post<RefreshDTO>('/users/auth/refresh-token', undefined, {
+      auth: false,
+      silent: true,
+      header: { Authorization: `Bearer ${refreshToken}` },
+    });
+    return { accessToken: res.access_token, refreshToken, expiresIn: res.expires_in };
+  },
 
-  refreshToken: (refreshToken: string) =>
-    http.post<TokenInfo>('/v1/auth/refresh', { refreshToken }, { auth: false, silent: true, mock: mockToken }),
-
-  getProfile: () => http.get<UserProfile>('/v1/user/profile', undefined, { mock: () => ({ ...db.profile }) }),
+  getProfile: async () => toProfile(await http.get<UserDTO>('/users')),
 };

@@ -1,5 +1,5 @@
 import { defineItem, storage } from '../core/storage';
-import type { Device, TokenInfo, UserProfile } from '../models/index';
+import type { Child, Device, TokenInfo, UserProfile } from '../models/index';
 
 /**
  * 业务存储项统一在此声明，页面/服务只通过这些对象读写本地缓存。
@@ -7,6 +7,8 @@ import type { Device, TokenInfo, UserProfile } from '../models/index';
  */
 export const tokenStore = defineItem<TokenInfo>('auth.token');
 export const profileStore = defineItem<UserProfile>('user.profile');
+/** 当前选中的孩子，定时来电 / 设备等接口都以它为维度 */
+export const childStore = defineItem<Child>('child.current');
 export const deviceStore = defineItem<Device>('device.current');
 /** 最近一次配网使用的 Wi-Fi 名称 */
 export const wifiStore = defineItem<string>('device.lastWifi');
@@ -14,14 +16,6 @@ export const wifiStore = defineItem<string>('device.lastWifi');
 export const logQueueStore = defineItem<object[]>('log.pending');
 /** 匿名设备标识，用于日志关联 */
 export const installIdStore = defineItem<string>('app.installId');
-
-/** 退出登录：保留安装标识等非用户数据 */
-export function clearUserData() {
-  tokenStore.remove();
-  profileStore.remove();
-  deviceStore.remove();
-  wifiStore.remove();
-}
 
 /** 注销账号：清空当前环境全部数据 */
 export function clearAllData() {

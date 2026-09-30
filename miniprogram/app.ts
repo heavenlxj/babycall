@@ -1,6 +1,6 @@
 import config, { ENV } from './config/index';
 import { logger } from './core/logger';
-import './core/auth';
+import { auth } from './core/auth';
 import { profileStore } from './store/index';
 
 App<IAppOption>({
@@ -11,6 +11,7 @@ App<IAppOption>({
     const profile = profileStore.get();
     if (profile) logger.setContext({ userId: profile.userId });
     logger.info('app', 'launch', { env: ENV, mock: config.useMock, scene: options.scene, path: options.path });
+    auth.init();
     this.checkUpdate();
   },
 

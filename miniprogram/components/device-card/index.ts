@@ -24,7 +24,8 @@ Component({
       let state = 'unbound';
       let statusText = '尚未连接';
       if (bound && device!.status === 'online') {
-        const low = (device!.battery || 0) <= 20;
+        const battery = device!.battery;
+        const low = battery !== null && battery !== undefined && battery <= 20;
         state = low ? 'low' : 'online';
         statusText = low ? '电量低' : '已连接';
       } else if (bound) {

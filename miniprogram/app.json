@@ -31,7 +31,7 @@
     {
       "root": "packages/mine",
       "name": "mine",
-      "pages": ["notifications/index", "parent/index"]
+      "pages": ["notifications/index", "parent/index", "child/index"]
     }
   ],
   "preloadRule": {

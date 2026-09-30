@@ -42,6 +42,19 @@ export function fullDate(ts: number): string {
   return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
 }
 
+/** 生日 YYYY-MM-DD → 4岁2个月 / 8个月；未填写返回空串 */
+export function ageText(birthday: string, now = new Date()): string {
+  if (!birthday) return '';
+  const [y, m, d] = birthday.split('-').map(Number);
+  let months = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m);
+  if (now.getDate() < d) months -= 1;
+  if (months < 0) return '';
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  if (!years) return `${rest}个月`;
+  return rest ? `${years}岁${rest}个月` : `${years}岁`;
+}
+
 /** 3 分 12 秒 */
 export function durationText(seconds: number): string {
   const m = Math.floor(seconds / 60);

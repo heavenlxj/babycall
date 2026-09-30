@@ -3,8 +3,7 @@ import { definePage } from '../../core/page';
 import { logger } from '../../core/logger';
 import { ROUTES, router } from '../../core/router';
 import type { Banner, Character, Device, Memory } from '../../models/index';
-import { characterService, contentService, deviceService, scheduleService } from '../../services/index';
-import { profileStore } from '../../store/index';
+import { characterService, childService, contentService, deviceService, scheduleService } from '../../services/index';
 import { greeting } from '../../utils/format';
 import { CallRecordView, ScheduleView, toCallRecordView, toMap, toScheduleView } from '../../utils/view';
 
@@ -25,10 +24,10 @@ definePage({
   },
 
   onLoad() {
-    const profile = profileStore.get();
+    const child = childService.current();
     this.setData({
       greeting: greeting(),
-      childName: profile ? profile.childName : '宝贝',
+      childName: child ? child.nickName : '宝贝',
       device: deviceService.cached(),
     });
     this.load();

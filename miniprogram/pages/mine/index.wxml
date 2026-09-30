@@ -9,9 +9,9 @@
       <view class="profile__name">{{profile.nickname || '宝贝的家长'}}</view>
       <view class="profile__meta">{{profile.phone}}</view>
     </view>
-    <view class="profile__child">
-      <text>{{profile.childName}}</text>
-      <text class="profile__age">{{profile.childAge}}</text>
+    <view class="profile__child" bindtap="goChild">
+      <text>{{child ? child.name : '添加宝贝'}}</text>
+      <text wx:if="{{child && child.age}}" class="profile__age">{{child.age}}</text>
     </view>
   </view>
 
@@ -23,7 +23,7 @@
       </view>
       <view class="club__desc">更多角色 · 角色记忆 · 每日任务 · 新故事</view>
     </view>
-    <view class="club__cta">{{profile.isMember ? '已开通' : '去开通'}}</view>
+    <view class="club__cta">去开通</view>
     <image class="club__img" src="{{images.bunny}}" mode="aspectFit" />
   </view>
 
@@ -41,20 +41,8 @@
     <list-cell icon="info" tone="gray" title="关于我们" value="{{version}}" arrow="{{false}}" border="{{false}}" />
   </view>
 
-  <view class="logout" bindtap="onLogout">退出登录</view>
-
   <view class="footer">
     <image class="footer__img" src="{{images.friends}}" mode="widthFix" />
     <view class="footer__text">一起探索角色世界</view>
   </view>
 </view>
-
-<dialog
-  show="{{showLogout}}"
-  image="{{images.fox}}"
-  title="确定要退出登录吗？"
-  content="小狐会在这里等你回来"
-  confirmText="退出"
-  bind:confirm="onConfirmLogout"
-  bind:cancel="onCancelLogout"
-/>

@@ -42,6 +42,13 @@ export function registerRefresher(fn: Refresher) {
   refresher = fn;
 }
 
+/** 由 auth 模块注入：启动静默登录完成前，需要鉴权的请求先等待 */
+let authReady: (() => Promise<void>) | null = null;
+
+export function registerAuthReady(fn: () => Promise<void>) {
+  authReady = fn;
+}
+
 /** 并发请求同时 401 时只刷新一次 */
 function refreshToken(): Promise<string> {
   if (!refresher) return Promise.reject(new ApiError('未登录', 401, 401, ''));
@@ -84,6 +91,7 @@ export async function request<T>(opts: RequestOptions<T>): Promise<T> {
   const needAuth = opts.auth !== false;
   const started = Date.now();
   try {
+    if (needAuth && authReady) await authReady();
     let res = await send<T>(opts, needAuth ? tokenStore.get()?.accessToken : undefined);
     if (res.status === 401 && needAuth) {
       const token = await refreshToken();

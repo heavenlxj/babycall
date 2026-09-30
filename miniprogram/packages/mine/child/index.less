@@ -1,0 +1,91 @@
+@import '../../../styles/theme.less';
+
+.hero {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0 40rpx;
+
+  &__img {
+    width: 180rpx;
+    height: 180rpx;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    margin-left: 24rpx;
+  }
+
+  &__title {
+    font-size: 40rpx;
+    font-weight: 700;
+  }
+
+  &__sub {
+    margin-top: 8rpx;
+    font-size: 26rpx;
+    color: @c-text-2;
+  }
+}
+
+.form {
+  padding: 0 28rpx;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    height: 112rpx;
+
+    & + & {
+      border-top: 1px solid #F3EDE3;
+    }
+  }
+
+  &__label {
+    width: 96rpx;
+    font-size: 28rpx;
+    font-weight: 600;
+  }
+
+  &__input {
+    flex: 1;
+    margin-left: 20rpx;
+    font-size: 30rpx;
+  }
+
+  &__picker--empty {
+    color: @c-text-3;
+  }
+}
+
+.field {
+  margin-top: @section-gap;
+
+  &__label {
+    margin-bottom: 20rpx;
+    font-size: 28rpx;
+    font-weight: 600;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chip {
+  margin: 0 16rpx 16rpx 0;
+  padding: 14rpx 36rpx;
+  font-size: 26rpx;
+  color: @c-text-2;
+  background: #fff;
+  border: 2rpx solid @c-border;
+  border-radius: 32rpx;
+  transition: all 0.2s;
+
+  &--on {
+    color: @c-primary-dark;
+    font-weight: 600;
+    background: @c-primary-soft;
+    border-color: @c-primary;
+  }
+}

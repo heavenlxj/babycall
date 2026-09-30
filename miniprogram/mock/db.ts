@@ -7,10 +7,7 @@ import type {
   Character,
   DailyReport,
   DailyTask,
-  Device,
   Memory,
-  Schedule,
-  UserProfile,
 } from '../models/index';
 
 const now = Date.now();
@@ -70,22 +67,6 @@ export const banners: Banner[] = [
     cta: '去听听', link: ROUTES.characterDetail, params: { id: 'bunny' }, startAt: now - DAY, endAt: now + 30 * DAY, sort: 3, theme: 'dark',
   },
 ];
-
-export const schedules: Schedule[] = [
-  { id: 's1', characterId: 'fox', time: '07:30', repeat: 'daily', weekdays: [], label: '早安电话', remindBefore: 0, enabled: true },
-  { id: 's2', characterId: 'dino', time: '19:30', repeat: 'workday', weekdays: [], label: '冒险任务', remindBefore: 5, enabled: true },
-  { id: 's3', characterId: 'bunny', time: '20:00', repeat: 'daily', weekdays: [], label: '睡前故事', remindBefore: 0, enabled: false },
-];
-
-export const device: Device = {
-  deviceId: '1234567890', name: '小狐儿童电话', status: 'online', battery: 80,
-  wifiName: 'Home_WiFi', firmware: 'v1.2.0', volume: 60,
-};
-
-export const profile: UserProfile = {
-  userId: 'u_10001', nickname: '宝贝的家长', avatar: '', phone: '138****8888',
-  childName: '宝贝', childAge: '4岁2个月', isMember: false,
-};
 
 export const callRecords: CallRecord[] = [
   { id: 'c1', characterId: 'fox', startAt: now - 2 * HOUR, duration: 192, direction: 'scheduled' },

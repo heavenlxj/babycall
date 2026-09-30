@@ -17,10 +17,23 @@ export interface UserProfile {
   nickname: string;
   avatar: string;
   phone: string;
-  childName: string;
-  childAge: string;
-  isMember: boolean;
 }
+
+export type Gender = 'male' | 'female';
+
+export interface Child {
+  childId: string;
+  nickName: string;
+  gender: Gender;
+  avatar: string;
+  /** YYYY-MM-DD */
+  birthday: string;
+  /** 家长与孩子的关系，如 mom / dad */
+  relationship: string;
+  bindDevice: boolean;
+}
+
+export type ChildDraft = Pick<Child, 'nickName' | 'gender' | 'birthday' | 'relationship'>;
 
 export type CharacterCategory = 'hot' | 'adventure' | 'warm' | 'knowledge' | 'game';
 
@@ -86,7 +99,8 @@ export interface Device {
   deviceId: string;
   name: string;
   status: DeviceStatus;
-  battery: number;
+  /** 设备未上报时为 null */
+  battery: number | null;
   wifiName: string;
   firmware: string;
   volume: number;

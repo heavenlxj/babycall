@@ -7,7 +7,7 @@ export interface EnvConfig {
   logUrl: string;
   /** OSS 存储根地址，素材路径见 constants/assets */
   ossBaseUrl: string;
-  /** 使用本地 mock 数据（无后端联调时） */
+  /** 尚未接入后端的接口（带 mock 选项的请求）使用本地 mock 数据 */
   useMock: boolean;
   /** 控制台最低输出级别 */
   logLevel: LogLevel;
@@ -21,7 +21,8 @@ export interface EnvConfig {
 
 const CONFIGS: Record<EnvName, EnvConfig> = {
   develop: {
-    apiBaseUrl: 'https://dev-api.pallycall.com/app',
+    // 本地 call-backend，开发者工具需勾选「不校验合法域名」
+    apiBaseUrl: 'http://127.0.0.1:9010/app/api',
     logUrl: 'https://dev-api.pallycall.com/log',
     ossBaseUrl: 'https://kidopally-app-test.oss-cn-beijing.aliyuncs.com',
     useMock: true,
@@ -30,7 +31,7 @@ const CONFIGS: Record<EnvName, EnvConfig> = {
     timeout: { request: 8000, upload: 20000 },
   },
   trial: {
-    apiBaseUrl: 'https://test-api.pallycall.com/app',
+    apiBaseUrl: 'https://test-api.pallycall.com/app/api',
     logUrl: 'https://test-api.pallycall.com/log',
     ossBaseUrl: 'https://kidopally-app-test.oss-cn-beijing.aliyuncs.com',
     useMock: true,
@@ -39,7 +40,7 @@ const CONFIGS: Record<EnvName, EnvConfig> = {
     timeout: { request: 8000, upload: 20000 },
   },
   release: {
-    apiBaseUrl: 'https://api.pallycall.com/app',
+    apiBaseUrl: 'https://api.pallycall.com/app/api',
     logUrl: 'https://api.pallycall.com/log',
     ossBaseUrl: 'https://kidopally-app.oss-cn-beijing.aliyuncs.com',
     useMock: false,
